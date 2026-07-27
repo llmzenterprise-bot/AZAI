@@ -1,0 +1,79 @@
+{
+  "nav": {
+    "home": "Accueil", "about": "À propos", "services": "Services", "book": "Réserver",
+    "appts": "Mes RDV", "contact": "Contact", "faq": "FAQ", "login": "Connexion"
+  },
+  "home": {
+    "eyebrow": "Portail de Réservation par IA",
+    "h1a": "Réservez, discutez ou", "h1b": "parlez-nous.",
+    "lead": "Votre assistant IA 24/7. Posez une question, trouvez le bon service et réservez un rendez-vous — par texte ou voix, dans votre langue. Sans musique d'attente.",
+    "cta1": "Réserver →", "cta2": "🎙 Parler à l'IA",
+    "t1": "réponse IA", "t2": "langues", "t3": "pour réserver",
+    "fEye": "Ce que vous pouvez faire", "fH": "Tout via un seul assistant.",
+    "f1t": "Discuter avec l'IA", "f1p": "Posez des questions sur les services, horaires et tarifs. Réponses instantanées et fiables.",
+    "f2t": "Assistant vocal", "f2p": "Vous préférez parler ? Parlez naturellement et l'IA répond avec une voix humaine, en temps réel.",
+    "f3t": "Réservation autonome", "f3p": "Réservez, reportez ou annulez à tout moment. Confirmations instantanées par e-mail et SMS.",
+    "f4t": "Votre langue", "f4p": "Basculez entre anglais, espagnol et français instantanément — tout le site suit.",
+    "f5t": "Compte sécurisé", "f5p": "Connectez-vous pour voir tous vos rendez-vous et gérer votre profil.",
+    "f6t": "Relais humain", "f6p": "Besoin d'une personne ? L'IA transfère à un humain dès qu'elle ne peut pas aider.",
+    "ctaH": "Prêt en 60 secondes environ.", "ctaP": "Choisissez un service, une heure, c'est fait. Votre réceptionniste IA gère le reste.", "ctaB": "Commencer"
+  },
+  "about": {
+    "eye": "À propos", "h": "Service humain, vitesse IA.",
+    "p1": "AZ AI Geeks crée des sites orientés conversion et des réceptionnistes IA pour les entreprises locales. Ce portail est la façon dont vos clients vous contactent — réserver, poser une question ou parler à l'assistant, à toute heure.",
+    "m1t": "Notre mission", "m1p": "Aucun client ne devrait tomber sur une messagerie et abandonner. Nous rendons chaque entreprise joignable instantanément.",
+    "m2t": "Notre méthode", "m2p": "L'IA d'abord, les humains toujours disponibles. L'assistant gère la routine, l'équipe gère les exceptions.",
+    "m3t": "Votre confiance", "m3p": "L'IA répond uniquement depuis une base vérifiée. Elle n'invente jamais d'horaires, de prix ni de promesses."
+  },
+  "svc": { "eye": "Services", "h": "Réservez le bon service.", "p": "Vous hésitez ? Demandez à l'assistant IA — en bas à droite — il vous orientera." },
+  "book": {
+    "h": "Réserver un rendez-vous", "sub": "Quatre étapes rapides. Vous pouvez aussi le dire à l'assistant IA.",
+    "s1": "1 · Service", "s2": "2 · Personnel", "s3": "3 · Date et heure", "s4": "4 · Confirmer",
+    "next": "Suivant →", "back": "← Retour", "confirm": "Confirmer", "chooseDate": "Choisissez une date",
+    "summary": "Résumé", "loginReq": "Connectez-vous pour confirmer votre réservation."
+  },
+  "contact": {
+    "h": "Contactez-nous", "sub": "Envoyez un message ou utilisez l'assistant chat/voix pour une réponse immédiate.",
+    "name": "Nom", "email": "E-mail", "msg": "Message", "send": "Envoyer", "or": "Ou écrivez-nous à"
+  },
+  "faq": { "eye": "FAQ", "h": "Questions, réponses." },
+  "login": { "h": "Bon retour", "sub": "Connectez-vous pour gérer vos rendez-vous.", "email": "E-mail", "pw": "Mot de passe", "btn": "Connexion", "no": "Pas de compte ?", "reg": "Créer", "fail": "Aucun compte — essayez de vous inscrire." },
+  "reg": { "h": "Créez votre compte", "sub": "Quelques secondes suffisent.", "name": "Nom complet", "email": "E-mail", "pw": "Mot de passe", "btn": "Créer le compte", "have": "Déjà inscrit ?", "login": "Connexion" },
+  "priv": {
+    "h": "Politique de Confidentialité",
+    "intro": "Cette démo stocke votre compte et vos rendez-vous localement dans votre navigateur. En production, les données sont traitées comme décrit.",
+    "h1": "Ce que nous collectons", "p1": "Nom, e-mail, téléphone et détails du rendez-vous que vous fournissez.",
+    "h2": "Comment nous l'utilisons", "p2": "Pour planifier, envoyer confirmations et rappels, et améliorer le service. Nous ne vendons jamais vos données.",
+    "h3": "Traitement par IA", "p3": "Les conversations peuvent être traitées par l'IA pour répondre et réserver. L'IA répond uniquement depuis une base vérifiée.",
+    "h4": "Vos droits", "p4": "Vous pouvez demander l'accès, la correction ou la suppression de vos données via hello@azaigeeks.com."
+  },
+  "terms": {
+    "h": "Conditions d'Utilisation", "intro": "En utilisant ce portail, vous acceptez les conditions suivantes.",
+    "h1": "Utilisation", "p1": "Ce portail permet de réserver et gérer des rendez-vous. Vous acceptez de fournir des informations exactes.",
+    "h2": "Annulations", "p2": "Vous pouvez reporter ou annuler via le portail ou l'assistant IA, selon le délai d'annulation.",
+    "h3": "Assistant IA", "p3": "L'IA fournit informations et aide à la réservation. Pour les devis fermes, un membre de l'équipe confirmera.",
+    "h4": "Responsabilité", "p4": "Fourni tel quel, sans garantie, pendant la phase de démonstration. Les conditions de production seront fournies au lancement."
+  },
+  "foot": { "tag": "Des sites qui vendent. Des appels qui closent. Des réservations automatiques.", "explore": "Explorer", "account": "Compte", "legal": "Légal", "rights": "Tous droits réservés.", "register": "S'inscrire" },
+  "chat": {
+    "title": "Assistant AZ", "online": "En ligne · réponse instantanée", "ph": "Écrivez un message…",
+    "greet": "Bonjour ! Je suis l'assistant IA d'AZ 👋 Je peux répondre à vos questions, vous aider à choisir un service et réserver, reporter ou annuler un rendez-vous. Que puis-je faire ?",
+    "chip1": "Voir services", "chip2": "Tarifs", "chip3": "Réserver", "chip4": "Parler à un humain"
+  },
+  "voice": {
+    "tap": "Touchez la sphère et parlez…", "hint": "Votre navigateur gère la voix — anglais, espagnol ou français.",
+    "listen": "🎙 Écouter", "stop": "■ Arrêter", "close": "Fermer",
+    "unsupported": "La reconnaissance vocale n'est pas prise en charge ici. Essayez Chrome ou Edge."
+  },
+  "appt": {
+    "h": "Mes rendez-vous", "welcome": "Connecté en tant que", "logout": "Déconnexion",
+    "none": "Aucun rendez-vous à venir.", "book": "Réserver maintenant",
+    "resched": "Reporter", "cancel": "Annuler",
+    "loginReq": "Connectez-vous pour voir vos rendez-vous.", "gotoLogin": "Se connecter"
+  },
+  "toast": {
+    "login": "Connecté — bon retour !", "reg": "Compte créé — c'est parti !", "logout": "Déconnecté.",
+    "booked": "Rendez-vous confirmé !", "cancelled": "Rendez-vous annulé.", "resched": "Rendez-vous reporté.",
+    "sent": "Message envoyé — réponse rapide.", "lang": "Langue changée"
+  }
+}

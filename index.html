@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- ============ SEO PRIMARY ============ -->
+<title>AZ AI Geeks | AI Receptionist + Conversion Websites That Book Calls 24/7</title>
+<meta name="description" content="AZ AI Geeks builds conversion-engineered websites and installs an AI Receptionist that answers your business line 24/7 — qualifying leads and booking 3–4 sales calls a month automatically. Live in 7 days." />
+<meta name="keywords" content="AI receptionist, AI answering service, conversion website, AI voice agent, small business AI, lead booking, 24/7 call answering, AI reception agent, appointment booking AI, missed call solution" />
+<meta name="author" content="AZ AI Geeks" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="canonical" href="https://azaigeeks.com/" />
+<link rel="icon" type="image/png" href="/logo-icon.png" />
+<meta name="theme-color" content="#05010f" />
+
+<!-- ============ OPEN GRAPH ============ -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="AZ AI Geeks" />
+<meta property="og:title" content="AI Receptionist + Conversion Websites That Book Calls 24/7" />
+<meta property="og:description" content="We build websites that sell and plug in an AI Receptionist that answers your line 24/7 — 3–4 qualified booked calls a month, without you touching a phone." />
+<meta property="og:url" content="https://azaigeeks.com/" />
+<meta property="og:image" content="https://azaigeeks.com/logo-full.png" />
+<meta property="og:locale" content="en_US" />
+
+<!-- ============ TWITTER ============ -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AI Receptionist + Conversion Websites That Book Calls 24/7" />
+<meta name="twitter:description" content="Websites that sell. Calls that close. An AI Receptionist answers your business line 24/7 and books qualified calls automatically." />
+<meta name="twitter:image" content="https://azaigeeks.com/logo-full.png" />
+
+<!-- ============ STRUCTURED DATA / JSON-LD ============ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "AZ AI Geeks",
+  "description": "AI-powered web agency building conversion-engineered websites and AI Receptionists that answer business phone lines 24/7.",
+  "url": "https://azaigeeks.com/",
+  "email": "hello@azaigeeks.com",
+  "priceRange": "$500 - $10,000",
+  "areaServed": "US",
+  "slogan": "Websites that sell. Calls that close.",
+  "serviceType": ["AI Receptionist", "Conversion Website Design", "Lead Generation Automation"],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "3"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What exactly is the AI Receptionist?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It is an intelligent voice agent wired into your business phone line. It answers calls 24/7, qualifies leads, answers common questions, and books appointments directly into your calendar — so you never miss a customer again." }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to build my site?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Most builds go from kickoff to live in 7 days. You receive previews within 48 hours of your strategy call." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I own the website once it is built?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The website is yours. You keep full ownership of the site and its content." }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if I do not get 3–4 booked calls in 30 days?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Our Booked-Call Guarantee: if you do not get 3–4 qualified booked calls in your first 30 days, we keep working — free — until you do." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I cancel the Growth Engine monthly plan?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The monthly plan can be cancelled at any time — there are no long-term lock-in contracts." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the $100 deposit really refundable?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The $100 deposit is credited in full toward your setup fee, and it is fully refundable if we do not get to your build." }
+    }
+  ]
+}
+</script>
+
+<style>
+/* ============================================================
+   AZ AI GEEKS — Futuristic single-file landing page
+   ============================================================ */
+:root{
+  --bg:#05010f;
+  --bg-2:#0a0620;
+  --ink:#eef0ff;
+  --muted:#a3a1c9;
+  --line:rgba(140,120,255,.16);
+  --cyan:#54ecff;
+  --violet:#a581ff;
+  --magenta:#ff6adb;
+  --lime:#a5ff7f;
+  --amber:#ffd76f;
+  --glass:rgba(20,14,48,.55);
+  --radius:20px;
+  --maxw:1180px;
+  --grad:linear-gradient(120deg,var(--cyan),var(--violet) 45%,var(--magenta));
+  --grad-action:linear-gradient(120deg,var(--lime),var(--amber));
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- Animated aurora background ---------- */
+.bg-fx{position:fixed;inset:0;z-index:-2;overflow:hidden;background:
+  radial-gradient(1200px 800px at 15% -10%, rgba(165,129,255,.28), transparent 60%),
+  radial-gradient(1000px 700px at 90% 10%, rgba(84,236,255,.20), transparent 55%),
+  radial-gradient(1000px 900px at 60% 110%, rgba(255,106,219,.20), transparent 55%),
+  var(--bg);}
+.orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;mix-blend-mode:screen;animation:float 18s ease-in-out infinite}
+.orb.a{width:520px;height:520px;background:radial-gradient(circle,#54ecff,transparent 70%);top:-120px;left:-80px}
+.orb.b{width:600px;height:600px;background:radial-gradient(circle,#a581ff,transparent 70%);top:30%;right:-160px;animation-delay:-5s}
+.orb.c{width:480px;height:480px;background:radial-gradient(circle,#ff6adb,transparent 70%);bottom:-140px;left:30%;animation-delay:-10s}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.08)}66%{transform:translate(-30px,25px) scale(.95)}}
+.grid-fx{position:fixed;inset:0;z-index:-1;background-image:
+  linear-gradient(rgba(140,120,255,.05) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(140,120,255,.05) 1px,transparent 1px);
+  background-size:56px 56px;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 40%,transparent 100%)}
+
+/* ---------- Layout ---------- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+section{padding:96px 0;position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;
+  color:var(--cyan);padding:7px 14px;border:1px solid var(--line);border-radius:100px;background:rgba(84,236,255,.06)}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.5)}}
+h1,h2,h3{line-height:1.08;letter-spacing:-.02em;font-weight:800}
+h2{font-size:clamp(1.9rem,4.4vw,3rem);margin:18px 0 14px}
+.lead{color:var(--muted);font-size:1.08rem;max-width:640px}
+.gradient-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% auto;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+.center{text-align:center}
+.center .lead{margin-left:auto;margin-right:auto}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.98rem;text-decoration:none;
+  padding:15px 26px;border-radius:100px;border:1px solid transparent;cursor:pointer;transition:.25s;position:relative}
+.btn-primary{color:#08040f;background:var(--grad-action);background-size:200% auto;box-shadow:0 8px 30px rgba(150,220,120,.4)}
+.btn-primary:hover{background-position:right center;transform:translateY(-3px);box-shadow:0 14px 44px rgba(255,215,111,.5)}
+.btn-ghost{color:var(--ink);border-color:var(--line);background:var(--glass);backdrop-filter:blur(10px)}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-3px);box-shadow:0 0 26px rgba(84,236,255,.3)}
+
+/* ---------- Nav ---------- */
+header.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);
+  background:rgba(5,1,15,.7);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px;gap:20px}
+.logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:1.12rem;text-decoration:none;color:var(--ink);letter-spacing:-.01em}
+.logo .mark{height:40px;width:auto;display:flex;align-items:center;filter:drop-shadow(0 0 10px rgba(165,129,255,.4))}
+.logo .mark img{height:100%;width:auto;display:block;object-fit:contain}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.92rem;font-weight:600;transition:.2s;position:relative}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:var(--grad);transition:.25s}
+.nav-links a:hover::after{width:100%}
+.nav-cta{display:flex;gap:10px;align-items:center}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:10px;padding:8px 11px;color:var(--ink);font-size:1.1rem;cursor:pointer}
+
+/* ---------- Hero ---------- */
+.hero{padding:70px 0 60px;text-align:center}
+.hero h1{font-size:clamp(2.6rem,7vw,5rem);margin:22px auto 20px;max-width:14ch}
+.hero .lead{font-size:1.18rem;max-width:680px;margin:0 auto 34px}
+.hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:56px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:720px;margin:0 auto}
+.stat{padding:26px 18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--glass);backdrop-filter:blur(10px);transition:.3s}
+.stat:hover{transform:translateY(-5px);border-color:var(--cyan);box-shadow:0 14px 40px rgba(84,236,255,.18)}
+.stat .num{font-size:2.3rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .lbl{color:var(--muted);font-size:.88rem;margin-top:4px}
+
+/* ---------- Cards ---------- */
+.cards{display:grid;gap:20px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.card{position:relative;padding:28px;border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--glass);backdrop-filter:blur(10px);overflow:hidden;transition:.3s}
+.card::before{content:"";position:absolute;inset:0;padding:1px;border-radius:var(--radius);
+  background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.3s}
+.card:hover{transform:translateY(-6px)}
+.card:hover::before{opacity:1}
+.card h3{font-size:1.18rem;margin-bottom:8px}
+.card p{color:var(--muted);font-size:.96rem}
+.card .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:1.35rem;margin-bottom:16px;
+  background:rgba(165,129,255,.14);border:1px solid var(--line)}
+.card .step-num{position:absolute;top:20px;right:24px;font-size:2.4rem;font-weight:800;color:rgba(255,255,255,.06)}
+
+/* problem cards accent */
+.card.warn .ico{background:rgba(255,106,219,.14)}
+
+/* ---------- Feature list (numbered stack) ---------- */
+.feature-row{display:flex;gap:20px;align-items:flex-start;padding:24px;border:1px solid var(--line);
+  border-radius:var(--radius);background:var(--glass);backdrop-filter:blur(10px);transition:.3s}
+.feature-row:hover{transform:translateX(6px);border-color:var(--violet)}
+.feature-row .n{flex:0 0 auto;width:52px;height:52px;border-radius:14px;display:grid;place-items:center;
+  font-weight:800;font-size:1.15rem;color:#08040f;background:var(--grad);background-size:200% auto;animation:shine 5s linear infinite}
+.feature-row h3{font-size:1.14rem;margin-bottom:4px}
+.feature-row p{color:var(--muted);font-size:.95rem}
+
+/* ---------- How it works timeline ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;position:relative}
+
+/* ---------- Pricing ---------- */
+.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+.price{position:relative;padding:34px 28px;border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--glass);backdrop-filter:blur(10px);display:flex;flex-direction:column;transition:.3s}
+.price:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(165,129,255,.2)}
+.price.pop{border-color:transparent;background:linear-gradient(var(--bg-2),var(--bg-2)) padding-box,var(--grad) border-box;box-shadow:0 20px 60px rgba(165,129,255,.3)}
+.badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--grad);color:#08040f;
+  font-weight:800;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:100px;white-space:nowrap}
+.price h3{font-size:1.3rem;margin-bottom:6px}
+.price .desc{color:var(--muted);font-size:.92rem;min-height:44px}
+.price .amount{font-size:2.3rem;font-weight:800;margin:16px 0 4px}
+.price .amount small{font-size:.9rem;color:var(--muted);font-weight:600}
+.price ul{list-style:none;margin:20px 0 26px;display:flex;flex-direction:column;gap:11px}
+.price li{display:flex;gap:10px;font-size:.94rem;color:var(--ink)}
+.price li::before{content:"✦";color:var(--cyan)}
+.price .btn{margin-top:auto;justify-content:center}
+
+/* ---------- Guarantees ---------- */
+.g-badge .ico{background:rgba(139,255,90,.12)}
+
+/* ---------- Testimonials ---------- */
+.quote{padding:28px;border:1px solid var(--line);border-radius:var(--radius);background:var(--glass);backdrop-filter:blur(10px);transition:.3s}
+.quote:hover{transform:translateY(-6px);border-color:var(--magenta)}
+.quote .stars{color:var(--amber);letter-spacing:3px;margin-bottom:12px}
+.quote blockquote{font-size:1.02rem;margin-bottom:16px}
+.quote .who{font-weight:700;font-size:.95rem}
+.quote .role{color:var(--muted);font-size:.85rem}
+.quote .verified{display:inline-flex;align-items:center;gap:5px;color:var(--lime);font-size:.78rem;margin-top:6px;font-weight:600}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+details{border:1px solid var(--line);border-radius:16px;background:var(--glass);backdrop-filter:blur(10px);overflow:hidden;transition:.3s}
+details[open]{border-color:var(--violet)}
+summary{cursor:pointer;padding:20px 24px;font-weight:700;font-size:1.02rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary .plus{flex:0 0 auto;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);transition:.3s;font-size:1.1rem}
+details[open] summary .plus{transform:rotate(45deg);background:var(--grad);color:#08040f;border-color:transparent}
+details .ans{padding:0 24px 22px;color:var(--muted);font-size:.96rem}
+
+/* ---------- Callout / limited availability ---------- */
+.callout{border:1px solid var(--line);border-radius:24px;padding:44px;background:
+  radial-gradient(600px 300px at 20% 0%,rgba(165,129,255,.18),transparent),var(--glass);backdrop-filter:blur(12px);text-align:center}
+.callout .deposit{margin-top:20px;padding:22px;border:1px dashed var(--line);border-radius:16px;background:rgba(84,236,255,.05)}
+
+/* ---------- Final CTA ---------- */
+.final{text-align:center;border:1px solid var(--line);border-radius:28px;padding:64px 32px;position:relative;overflow:hidden;
+  background:radial-gradient(700px 400px at 50% 0%,rgba(255,106,219,.2),transparent),linear-gradient(180deg,var(--bg-2),var(--bg))}
+.final h2{max-width:16ch;margin-left:auto;margin-right:auto}
+
+/* ---------- Footer ---------- */
+footer{border-top:1px solid var(--line);padding:56px 0 34px;background:var(--bg-2)}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;margin-bottom:36px}
+.foot-grid h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);margin-bottom:14px}
+.foot-grid a{display:block;color:var(--muted);text-decoration:none;font-size:.92rem;margin-bottom:9px;transition:.2s}
+.foot-grid a:hover{color:var(--cyan)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;
+  padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+.foot-bottom .links{display:flex;gap:18px}
+.foot-bottom a{color:var(--muted);text-decoration:none}
+.foot-bottom a:hover{color:var(--ink)}
+
+/* ---------- Reveal on scroll ---------- */
+.reveal{opacity:0;transform:translateY(28px);transition:.7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- Section heading block ---------- */
+.sec-head{margin-bottom:48px}
+.sec-head.center{margin-left:auto;margin-right:auto;max-width:720px}
+
+/* ---------- Responsive ---------- */
+@media(max-width:900px){
+  .g3,.g2,.pricing,.steps,.stats{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  .burger{display:block}
+  .nav-links.open{display:flex;position:absolute;top:70px;left:0;right:0;flex-direction:column;
+    background:rgba(5,1,15,.97);padding:20px;border-bottom:1px solid var(--line);gap:16px}
+  section{padding:70px 0}
+}
+@media(max-width:560px){
+  .hero .lead{font-size:1.05rem}
+  .foot-grid{grid-template-columns:1fr}
+  .callout{padding:30px 22px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Animated background -->
+<div class="bg-fx"><span class="orb a"></span><span class="orb b"></span><span class="orb c"></span></div>
+<div class="grid-fx"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo"><span class="mark"><img src="/logo-icon.png" alt="AZ AI Geeks logo" width="75" height="40" /></span> AZ AI Geeks</a>
+    <nav class="nav-links" id="navlinks">
+      <a href="#features">What You Get</a>
+      <a href="#how">How It Works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="mailto:hello@azaigeeks.com?subject=Book%20a%20Free%20Strategy%20Call" class="btn btn-primary">Book a Call</a>
+      <button class="burger" id="burger" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero wrap">
+  <span class="eyebrow reveal">AI-Powered Web Agency</span>
+  <h1 class="reveal">Websites That <span class="gradient-text">Don't Just Sit There</span></h1>
+  <p class="lead reveal">We build conversion-engineered websites and plug in an <strong>AI Receptionist</strong> that answers your business line 24/7. The result: 3–4 qualified sales calls on your calendar every month — without you touching a phone.</p>
+  <div class="hero-cta reveal">
+    <a href="mailto:hello@azaigeeks.com?subject=Book%20a%20Free%20Strategy%20Call" class="btn btn-primary">Book a Free Strategy Call →</a>
+    <a href="#pricing" class="btn btn-ghost">See Our Pricing</a>
+  </div>
+  <div class="stats reveal">
+    <div class="stat"><div class="num">3–4</div><div class="lbl">Booked calls / month</div></div>
+    <div class="stat"><div class="num">24/7</div><div class="lbl">AI answering</div></div>
+    <div class="stat"><div class="num">7 days</div><div class="lbl">Turnaround</div></div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM ============ -->
+<section id="problem" class="wrap">
+  <div class="sec-head center reveal">
+    <span class="eyebrow">The Problem</span>
+    <h2>Your website is a <span class="gradient-text">digital business card.</span></h2>
+    <p class="lead">Visitors land, look around, leave. No path, no push, no next step. Every missed call is a customer who just booked with your competitor instead.</p>
+  </div>
+  <div class="cards g3">
+    <div class="card warn reveal"><div class="ico">🚫</div><h3>No conversion path</h3><p>Most small business sites look nice but never ask for the sale. They inform without converting.</p></div>
+    <div class="card warn reveal"><div class="ico">📵</div><h3>Missed calls = lost revenue</h3><p>62% of calls to small businesses go to voicemail. Most callers never try again — they move on to the next listing.</p></div>
+    <div class="card warn reveal"><div class="ico">🕳️</div><h3>No follow-up system</h3><p>Leads who don't convert immediately are forgotten forever. No nurture, no reminder, no second chance.</p></div>
+  </div>
+</section>
+
+<!-- ============ WHAT'S INCLUDED ============ -->
+<section id="features" class="wrap">
+  <div class="sec-head center reveal">
+    <span class="eyebrow">What's Included</span>
+    <h2>Every client gets the <span class="gradient-text">full stack.</span></h2>
+    <p class="lead">No upsells, no hidden fees. This is the baseline for every package.</p>
+  </div>
+  <div class="cards" style="gap:14px">
+    <div class="feature-row reveal"><div class="n">01</div><div><h3>Conversion-Engineered Website</h3><p>Every page built around one goal: getting the visitor to book or buy. Not a brochure.</p></div></div>
+    <div class="feature-row reveal"><div class="n">02</div><div><h3>AI Receptionist</h3><p>Wired directly into your business phone line. Answers, qualifies, and books every call — day or night.</p></div></div>
+    <div class="feature-row reveal"><div class="n">03</div><div><h3>Live Booking Calendar</h3><p>Synced to your real schedule. Customers book themselves without playing phone tag.</p></div></div>
+    <div class="feature-row reveal"><div class="n">04</div><div><h3>Mobile-First Build</h3><p>Fast load, clean code, no dead ends. Your site works perfectly on every device.</p></div></div>
+    <div class="feature-row reveal"><div class="n">05</div><div><h3>Monthly Check-in</h3><p>We review what's working and what we're adjusting. You are never left in the dark.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section id="how" class="wrap">
+  <div class="sec-head center reveal">
+    <span class="eyebrow">How It Works</span>
+    <h2>From kickoff to live in <span class="gradient-text">7 days.</span></h2>
+    <p class="lead">Strategy · Build · Grow</p>
+  </div>
+  <div class="steps">
+    <div class="card reveal"><span class="step-num">01</span><div class="ico">📞</div><h3>Strategy Call</h3><p>Book a free 15-minute call. We map your goals, audience, and what success looks like.</p></div>
+    <div class="card reveal"><span class="step-num">02</span><div class="ico">🛠️</div><h3>We Build</h3><p>Our team designs, codes, and wires up your AI Receptionist. You get previews within 48 hours.</p></div>
+    <div class="card reveal"><span class="step-num">03</span><div class="ico">🚀</div><h3>Go Live & Grow</h3><p>Site launches. AI starts answering. You watch the booked calls roll in — with monthly reports.</p></div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing" class="wrap">
+  <div class="sec-head center reveal">
+    <span class="eyebrow">Pricing</span>
+    <h2>Three ways to <span class="gradient-text">work with us.</span></h2>
+    <p class="lead">Starter for the basics. Growth Engine for serious results. Full Domination for scale.</p>
+  </div>
+  <div class="pricing">
+    <div class="price reveal">
+      <h3>Starter Site</h3>
+      <p class="desc">A conversion-focused website that pushes visitors to act.</p>
+      <div class="amount">$500 <small>one-time</small></div>
+      <ul>
+        <li>Conversion-engineered website</li>
+        <li>Mobile-first build</li>
+        <li>Live booking calendar</li>
+        <li>7-day turnaround</li>
+      </ul>
+      <a href="mailto:hello@azaigeeks.com?subject=Starter%20Site" class="btn btn-ghost">Get Started</a>
+    </div>
+    <div class="price pop reveal">
+      <span class="badge">★ Most Popular</span>
+      <h3>Growth Engine</h3>
+      <p class="desc">The complete conversion + AI stack. Our most popular package.</p>
+      <div class="amount">$1,050 <small>setup + $300/mo</small></div>
+      <ul>
+        <li>Everything in Starter</li>
+        <li>AI Receptionist on your line</li>
+        <li>24/7 call answering & booking</li>
+        <li>Monthly check-in & reports</li>
+        <li>Booked-Call Guarantee</li>
+      </ul>
+      <a href="mailto:hello@azaigeeks.com?subject=Growth%20Engine" class="btn btn-primary">Choose Growth Engine</a>
+    </div>
+    <div class="price reveal">
+      <h3>Full Domination</h3>
+      <p class="desc">Everything plus scale, ads, and a dedicated manager.</p>
+      <div class="amount">$10,000 <small>one-time</small></div>
+      <ul>
+        <li>Everything in Growth Engine</li>
+        <li>Paid ads management</li>
+        <li>Dedicated account manager</li>
+        <li>Priority scale & support</li>
+      </ul>
+      <a href="mailto:hello@azaigeeks.com?subject=Full%20Domination" class="btn btn-ghost">Go Full Domination</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GUARANTEES ============ -->
+<section id="guarantee" class="wrap">
+  <div class="sec-head center reveal">
+    <span class="eyebrow">Risk Reversal</span>
+    <h2>We put our money <span class="gradient-text">where our mouth is.</span></h2>
+    <p class="lead">Pick the guarantee that fits your comfort level. We honor every one.</p>
+  </div>
+  <div class="cards g3">
+    <div class="card g-badge reveal"><div class="ico">✅</div><h3>Booked-Call Guarantee</h3><p>If you don't get 3–4 qualified booked calls in your first 30 days, we keep working — free — until you do.</p></div>
+    <div class="card g-badge reveal"><div class="ico">🔁</div><h3>Do-It-Again-Free</h3><p>Not happy with the site or AI setup? We rebuild or reconfigure it at no charge until it is right.</p></div>
+    <div class="card g-badge reveal"><div class="ico">💸</div><h3>Setup Fee Refund</h3><p>If the AI Receptionist isn't live and answering calls within 14 days of kickoff, your setup fee is fully refunded.</p></div>
+  </div>
+</section>
+
+<!-- ============ LIMITED AVAILABILITY ============ -->
+<section id="availability" class="wrap">
+  <div class="callout reveal">
+    <span class="eyebrow">Limited Availability</span>
+    <h2 style="margin-top:16px">We only take on <span class="gradient-text">8 new builds per month.</span></h2>
+    <p class="lead" style="margin:0 auto">Every site and AI Receptionist is set up hands-on, not templated. We cap intake to protect quality and turnaround.</p>
+    <div class="deposit">
+      <h3 style="margin-bottom:8px">Want to skip the line?</h3>
+      <p style="color:var(--muted);margin-bottom:18px">A $100 deposit — credited in full toward your setup fee — moves you to the front of the current month's build queue. Fully refundable if we don't get to you.</p>
+      <a href="mailto:hello@azaigeeks.com?subject=Deposit%20%E2%80%94%20Skip%20the%20Line" class="btn btn-primary">Send $100 Deposit →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section id="testimonials" class="wrap">
+  <div class="sec-head center reveal">
+    <span class="eyebrow">Trusted by Business Owners</span>
+    <h2>They stopped <span class="gradient-text">losing leads.</span></h2>
+  </div>
+  <div class="cards g3">
+    <div class="quote reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote>"I was missing 3–4 calls a day. Now the AI books them while I'm with clients. My calendar went from empty to full in two weeks."</blockquote>
+      <div class="who">Mike T.</div><div class="role">Auto Shop Owner</div>
+      <div class="verified">✔ Verified client</div>
+    </div>
+    <div class="quote reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Our old site looked good but never got us calls. The new one + AI Receptionist doubled our bookings in the first month."</blockquote>
+      <div class="who">Sarah L.</div><div class="role">Salon Owner</div>
+      <div class="verified">✔ Verified client</div>
+    </div>
+    <div class="quote reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote>"I paid $500 for a site before that did nothing. This actually brings customers. Best money I've spent on my business."</blockquote>
+      <div class="who">Carlos R.</div><div class="role">Roofing Contractor</div>
+      <div class="verified">✔ Verified client</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="wrap">
+  <div class="sec-head center reveal">
+    <span class="eyebrow">FAQ</span>
+    <h2>Questions, <span class="gradient-text">answered.</span></h2>
+  </div>
+  <div class="faq">
+    <details class="reveal" open><summary>What exactly is the AI Receptionist?<span class="plus">+</span></summary><div class="ans">It's an intelligent voice agent wired into your business phone line. It answers calls 24/7, qualifies leads, answers common questions, and books appointments directly into your calendar — so you never miss a customer again.</div></details>
+    <details class="reveal"><summary>How long does it take to build my site?<span class="plus">+</span></summary><div class="ans">Most builds go from kickoff to live in 7 days, and you receive your first previews within 48 hours of the strategy call.</div></details>
+    <details class="reveal"><summary>Do I own the website once it is built?<span class="plus">+</span></summary><div class="ans">Yes. The website is yours — you keep full ownership of the site and its content.</div></details>
+    <details class="reveal"><summary>What happens if I don't get 3–4 booked calls in 30 days?<span class="plus">+</span></summary><div class="ans">Our Booked-Call Guarantee kicks in: if you don't get 3–4 qualified booked calls in your first 30 days, we keep working — free — until you do.</div></details>
+    <details class="reveal"><summary>Can I cancel the Growth Engine monthly plan?<span class="plus">+</span></summary><div class="ans">Yes. The monthly plan can be cancelled at any time. There are no long-term lock-in contracts.</div></details>
+    <details class="reveal"><summary>Is the $100 deposit really refundable?<span class="plus">+</span></summary><div class="ans">Yes. It's credited in full toward your setup fee, and it's fully refundable if we don't get to your build.</div></details>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="wrap">
+  <div class="final reveal">
+    <span class="eyebrow">Limited Spots This Month</span>
+    <h2 style="margin-top:18px">Ready to stop <span class="gradient-text">losing customers?</span></h2>
+    <p class="lead" style="margin:0 auto 30px">Book a free 15-minute strategy call. We'll map out which package makes sense for your business — no pressure, no pitch.</p>
+    <div class="hero-cta" style="margin-bottom:0">
+      <a href="mailto:hello@azaigeeks.com?subject=Book%20a%20Free%20Strategy%20Call" class="btn btn-primary">Book Your Free Call →</a>
+      <a href="#pricing" class="btn btn-ghost">See Pricing</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#top" class="logo" style="margin-bottom:14px"><span class="mark"><img src="/logo-icon.png" alt="AZ AI Geeks logo" width="75" height="40" /></span> AZ AI Geeks</a>
+        <p style="color:var(--muted);font-size:.92rem;max-width:34ch">Websites that sell. Calls that close. We build conversion-engineered sites and AI Receptionists that answer your line 24/7.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="#features">What You Get</a>
+        <a href="#how">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="mailto:hello@azaigeeks.com">Email Us</a>
+        <a href="mailto:hello@azaigeeks.com?subject=Book%20a%20Free%20Strategy%20Call">Book a Call</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#guarantee">Guarantees</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 AZ AI Geeks. All rights reserved.</span>
+      <div class="links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Security</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile menu
+document.getElementById('burger').addEventListener('click',function(){
+  document.getElementById('navlinks').classList.toggle('open');
+});
+document.querySelectorAll('#navlinks a').forEach(a=>a.addEventListener('click',()=>
+  document.getElementById('navlinks').classList.remove('open')));
+
+// Scroll reveal
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach((el,i)=>{
+  el.style.transitionDelay=(i%3*90)+'ms';
+  io.observe(el);
+});
+</script>
+</body>
+</html>

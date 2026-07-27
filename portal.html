@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AZ AI Geeks — AI Booking Portal</title>
+<link rel="icon" type="image/png" href="/logo-icon.png" />
+<meta name="description" content="Book, reschedule, and manage appointments with an AI assistant you can chat or talk to — 24/7, in English, Spanish, or French." />
+<meta name="theme-color" content="#0a0620" />
+<style>
+/* =====================================================================
+   AZ AI GEEKS — AI CUSTOMER PORTAL (single-file prototype)
+   Marketing pages: bold/futuristic · App pages: calm/premium
+   ===================================================================== */
+:root{
+  --bg:#0a0620; --bg-2:#0f0a2b; --panel:#141033; --panel-2:#1b1547;
+  --ink:#f2f2fb; --muted:#a7a4cf; --line:rgba(150,130,255,.16);
+  --cyan:#54ecff; --violet:#a581ff; --magenta:#ff6fd4; --lime:#8ff5ba; --amber:#ffd76f;
+  --grad:linear-gradient(120deg,var(--cyan),var(--violet) 48%,var(--magenta));
+  --grad-action:linear-gradient(120deg,var(--lime),var(--amber));
+  --radius:18px; --maxw:1160px;
+  /* calm app surfaces (light) */
+  --app-bg:#f6f7fb; --app-panel:#ffffff; --app-ink:#171528; --app-muted:#6a6785; --app-line:#e7e7f0; --app-accent:#8e75ff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+button{font-family:inherit;cursor:pointer}
+
+/* animated bg for marketing */
+.bg-fx{position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(1000px 700px at 12% -8%,rgba(165,129,255,.30),transparent 60%),
+  radial-gradient(900px 650px at 92% 6%,rgba(84,236,255,.18),transparent 55%),
+  radial-gradient(900px 800px at 60% 112%,rgba(255,111,212,.16),transparent 55%),var(--bg)}
+.orb{position:fixed;border-radius:50%;filter:blur(70px);opacity:.5;mix-blend-mode:screen;z-index:-1;animation:float 20s ease-in-out infinite}
+.orb.a{width:480px;height:480px;background:radial-gradient(circle,#54ecff,transparent 70%);top:-100px;left:-60px}
+.orb.b{width:560px;height:560px;background:radial-gradient(circle,#a581ff,transparent 70%);top:26%;right:-140px;animation-delay:-6s}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-24px)}}
+body.app-mode .bg-fx{background:var(--app-bg)}
+body.app-mode .orb{display:none}
+body.app-mode{background:var(--app-bg);color:var(--app-ink)}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+.gradient-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% auto;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+h1,h2,h3{line-height:1.12;letter-spacing:-.02em;font-weight:800}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;padding:13px 22px;border-radius:100px;border:1px solid transparent;transition:.25s;white-space:nowrap}
+.btn-primary{color:#08040f;background:var(--grad-action);background-size:200% auto;box-shadow:0 8px 26px rgba(150,220,120,.4)}
+.btn-primary:hover{background-position:right center;transform:translateY(-2px)}
+.btn-ghost{border-color:var(--line);color:var(--ink);background:rgba(255,255,255,.03)}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+body.app-mode .btn-ghost{border-color:var(--app-line);color:var(--app-ink);background:#fff}
+body.app-mode .btn-ghost:hover{border-color:var(--app-accent);color:var(--app-accent)}
+.btn-sm{padding:9px 16px;font-size:.85rem}
+.btn.block{width:100%;justify-content:center}
+
+/* ============ NAV ============ */
+header.nav{position:sticky;top:0;z-index:40;backdrop-filter:blur(16px);background:rgba(10,6,32,.72);border-bottom:1px solid var(--line)}
+body.app-mode header.nav{background:rgba(255,255,255,.85);border-bottom:1px solid var(--app-line)}
+.nav-in{display:flex;align-items:center;gap:18px;height:66px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.05rem}
+.logo .mk{height:38px;width:auto;display:flex;align-items:center;filter:drop-shadow(0 0 10px rgba(165,129,255,.4))}
+.logo .mk img{height:100%;width:auto;display:block;object-fit:contain}
+.nav-links{display:flex;gap:22px;margin-left:12px}
+.nav-links a{color:var(--muted);font-size:.9rem;font-weight:600;transition:.2s;cursor:pointer}
+.nav-links a:hover,.nav-links a.active{color:var(--ink)}
+body.app-mode .nav-links a{color:var(--app-muted)}
+body.app-mode .nav-links a:hover,body.app-mode .nav-links a.active{color:var(--app-ink)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+/* language switcher */
+.lang{position:relative}
+.lang-btn{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:inherit;border-radius:100px;padding:8px 12px;font-size:.85rem;font-weight:600}
+body.app-mode .lang-btn{background:#fff;border-color:var(--app-line)}
+.lang-menu{position:absolute;right:0;top:46px;background:var(--panel-2);border:1px solid var(--line);border-radius:14px;padding:6px;min-width:150px;display:none;z-index:60;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+body.app-mode .lang-menu{background:#fff;border-color:var(--app-line);box-shadow:0 20px 50px rgba(30,20,80,.15)}
+.lang-menu.open{display:block}
+.lang-menu button{display:flex;align-items:center;gap:9px;width:100%;background:none;border:none;color:inherit;padding:10px 12px;border-radius:9px;font-size:.9rem;text-align:left}
+.lang-menu button:hover{background:rgba(165,129,255,.14)}
+.burger{display:none;background:none;border:1px solid var(--line);color:inherit;border-radius:10px;padding:7px 10px;font-size:1.05rem}
+
+/* ============ PAGE SYSTEM ============ */
+.page{display:none;animation:fade .4s ease}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+section{padding:80px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--cyan);padding:6px 13px;border:1px solid var(--line);border-radius:100px;background:rgba(84,236,255,.06)}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.sec-head{max-width:680px;margin:0 auto 44px;text-align:center}
+.sec-head h2{font-size:clamp(1.8rem,4vw,2.7rem);margin:14px 0 12px}
+.lead{color:var(--muted);font-size:1.05rem}
+body.app-mode .lead{color:var(--app-muted)}
+
+/* HERO */
+.hero{text-align:center;padding:76px 0 56px}
+.hero h1{font-size:clamp(2.4rem,6.4vw,4.4rem);max-width:15ch;margin:20px auto 18px}
+.hero .lead{max-width:620px;margin:0 auto 30px;font-size:1.15rem}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.trust{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:44px;color:var(--muted);font-size:.9rem}
+.trust b{color:var(--ink)}
+
+/* cards grid */
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{padding:26px;border:1px solid var(--line);border-radius:var(--radius);background:rgba(20,16,51,.55);backdrop-filter:blur(10px);transition:.3s}
+.card:hover{transform:translateY(-5px);border-color:var(--violet)}
+.card .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.3rem;margin-bottom:14px;background:rgba(165,129,255,.15);border:1px solid var(--line)}
+.card h3{font-size:1.12rem;margin-bottom:6px}
+.card p{color:var(--muted);font-size:.94rem}
+body.app-mode .card{background:var(--app-panel);border-color:var(--app-line);box-shadow:0 6px 20px rgba(30,20,80,.05)}
+body.app-mode .card p{color:var(--app-muted)}
+
+/* ============ APP / PORTAL SURFACES ============ */
+.app-shell{min-height:60vh;padding:44px 0}
+.panel{background:var(--app-panel);border:1px solid var(--app-line);border-radius:22px;padding:30px;box-shadow:0 10px 40px rgba(30,20,80,.06)}
+body:not(.app-mode) .panel{background:var(--panel);border-color:var(--line);box-shadow:none}
+.page-title{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:6px}
+.page-sub{color:var(--app-muted);margin-bottom:28px}
+body:not(.app-mode) .page-sub{color:var(--muted)}
+
+/* forms */
+.field{margin-bottom:16px}
+.field label{display:block;font-size:.85rem;font-weight:600;margin-bottom:7px;color:var(--app-muted)}
+body:not(.app-mode) .field label{color:var(--muted)}
+.input,select.input,textarea.input{width:100%;padding:13px 15px;border-radius:12px;border:1px solid var(--app-line);background:#fff;color:var(--app-ink);font-size:.95rem;font-family:inherit;transition:.2s}
+body:not(.app-mode) .input{background:var(--panel-2);border-color:var(--line);color:var(--ink)}
+.input:focus{outline:none;border-color:var(--app-accent);box-shadow:0 0 0 3px rgba(142,117,255,.15)}
+.form-narrow{max-width:440px;margin:0 auto}
+
+/* steps (booking) */
+.stepper{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+.stepper .st{flex:1;min-width:120px;padding:12px;border-radius:12px;border:1px solid var(--app-line);text-align:center;font-size:.82rem;font-weight:700;color:var(--app-muted);background:#fff}
+body:not(.app-mode) .stepper .st{background:var(--panel-2);border-color:var(--line);color:var(--muted)}
+.stepper .st.on{background:var(--grad);color:#08040f;border-color:transparent}
+.stepper .st.done{border-color:var(--app-accent);color:var(--app-accent)}
+
+.opt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.opt{padding:18px;border:1px solid var(--app-line);border-radius:14px;background:#fff;cursor:pointer;transition:.2s}
+body:not(.app-mode) .opt{background:var(--panel-2);border-color:var(--line)}
+.opt:hover{border-color:var(--app-accent);transform:translateY(-3px)}
+.opt.sel{border-color:var(--lime);box-shadow:0 0 0 3px rgba(143,245,186,.22)}
+.opt h4{font-size:1rem;margin-bottom:4px}
+.opt .meta{font-size:.82rem;color:var(--app-muted)}
+body:not(.app-mode) .opt .meta{color:var(--muted)}
+.opt .price{font-weight:800;margin-top:8px;color:var(--app-accent)}
+body:not(.app-mode) .opt .price{color:var(--cyan)}
+
+.slot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px}
+.slot{padding:11px;text-align:center;border:1px solid var(--app-line);border-radius:10px;background:#fff;font-size:.88rem;font-weight:600;cursor:pointer;transition:.15s}
+body:not(.app-mode) .slot{background:var(--panel-2);border-color:var(--line)}
+.slot:hover{border-color:var(--app-accent)}
+.slot.sel{background:var(--grad-action);color:#08040f;border-color:transparent}
+.slot.off{opacity:.35;pointer-events:none;text-decoration:line-through}
+
+/* appointment list */
+.appt{display:flex;gap:16px;align-items:center;padding:18px;border:1px solid var(--app-line);border-radius:14px;background:#fff;margin-bottom:12px}
+body:not(.app-mode) .appt{background:var(--panel-2);border-color:var(--line)}
+.appt .date-badge{flex:0 0 auto;width:64px;text-align:center;border-radius:12px;padding:10px 0;background:var(--grad-action);color:#08040f;font-weight:800}
+.appt .date-badge .d{font-size:1.4rem;line-height:1}
+.appt .date-badge .m{font-size:.7rem;text-transform:uppercase}
+.appt .info{flex:1}
+.appt .info h4{font-size:1.02rem}
+.appt .info .meta{color:var(--app-muted);font-size:.85rem}
+body:not(.app-mode) .appt .info .meta{color:var(--muted)}
+.appt .acts{display:flex;gap:8px;flex-wrap:wrap}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:100px;background:rgba(143,245,186,.16);color:#1c9d5f}
+body:not(.app-mode) .tag{color:var(--lime)}
+
+/* faq */
+details{border:1px solid var(--line);border-radius:14px;background:rgba(20,16,51,.5);margin-bottom:10px;overflow:hidden}
+body.app-mode details{background:#fff;border-color:var(--app-line)}
+summary{padding:18px 20px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+details .a{padding:0 20px 18px;color:var(--muted)}
+body.app-mode details .a{color:var(--app-muted)}
+.plus{transition:.3s}
+details[open] .plus{transform:rotate(45deg)}
+
+/* legal */
+.legal{max-width:760px;margin:0 auto}
+.legal h3{margin:26px 0 8px;font-size:1.15rem}
+.legal p{color:var(--muted);margin-bottom:10px;font-size:.95rem}
+body.app-mode .legal p{color:var(--app-muted)}
+
+/* ============ AI CHAT WIDGET ============ */
+.fab-wrap{position:fixed;right:22px;bottom:22px;z-index:80;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.fab{width:62px;height:62px;border-radius:50%;border:none;background:var(--grad-action);background-size:200% auto;animation:shine 5s linear infinite;box-shadow:0 10px 34px rgba(150,220,120,.5);font-size:1.6rem;display:grid;place-items:center;transition:.25s}
+.fab:hover{transform:scale(1.08)}
+.fab.mic{width:52px;height:52px;font-size:1.3rem;background:var(--panel-2);border:1px solid var(--line)}
+.fab.mic.live{background:linear-gradient(120deg,var(--magenta),var(--amber));animation:pulseMic 1s infinite}
+@keyframes pulseMic{0%,100%{box-shadow:0 0 0 0 rgba(255,111,212,.5)}50%{box-shadow:0 0 0 14px rgba(255,111,212,0)}}
+.chat{position:fixed;right:22px;bottom:22px;z-index:90;width:380px;max-width:calc(100vw - 32px);height:560px;max-height:calc(100vh - 40px);
+  background:var(--bg-2);border:1px solid var(--line);border-radius:22px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.chat.open{display:flex}
+.chat-head{padding:16px 18px;background:linear-gradient(120deg,rgba(165,129,255,.25),rgba(84,236,255,.15));border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+.chat-head .av{width:38px;height:38px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-size:1.1rem}
+.chat-head h4{font-size:.98rem}
+.chat-head .status{font-size:.75rem;color:var(--lime);display:flex;align-items:center;gap:5px}
+.chat-head .status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime)}
+.chat-head .x{margin-left:auto;background:none;border:none;color:var(--muted);font-size:1.4rem}
+.chat-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:82%;padding:11px 15px;border-radius:16px;font-size:.92rem;line-height:1.5;animation:fade .3s}
+.msg.bot{align-self:flex-start;background:var(--panel-2);border:1px solid var(--line);border-bottom-left-radius:5px}
+.msg.me{align-self:flex-end;background:var(--grad);color:#08040f;border-bottom-right-radius:5px;font-weight:600}
+.msg.bot a{color:var(--cyan);text-decoration:underline}
+.chips{display:flex;flex-wrap:wrap;gap:7px;padding:0 18px 10px}
+.chip{font-size:.8rem;padding:8px 13px;border-radius:100px;border:1px solid var(--line);background:rgba(143,245,186,.14);color:var(--ink);transition:.2s}
+.chip:hover{background:var(--lime);color:#08040f}
+.chat-in{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.chat-in input{flex:1;padding:12px 14px;border-radius:100px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:.9rem}
+.chat-in input:focus{outline:none;border-color:var(--cyan)}
+.chat-in button{border:none;border-radius:50%;width:44px;height:44px;background:var(--grad-action);color:#08040f;font-size:1.1rem;flex:0 0 auto}
+.chat-in .mic-btn{background:var(--panel-2);border:1px solid var(--line);color:var(--ink)}
+.chat-in .mic-btn.live{background:linear-gradient(120deg,var(--magenta),var(--amber));animation:pulseMic 1s infinite}
+.typing{display:flex;gap:4px;padding:12px 15px}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,60%,100%{opacity:.25}30%{opacity:1}}
+
+/* voice overlay */
+.voice-ov{position:fixed;inset:0;z-index:100;background:rgba(6,3,20,.86);backdrop-filter:blur(12px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:26px;padding:24px;text-align:center}
+.voice-ov.open{display:flex}
+.voice-orb{width:150px;height:150px;border-radius:50%;background:var(--grad);background-size:200% auto;animation:shine 4s linear infinite;box-shadow:0 0 80px rgba(165,129,255,.6);display:grid;place-items:center;font-size:3rem}
+.voice-orb.listening{animation:shine 4s linear infinite,breathe 1.4s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.12);box-shadow:0 0 120px rgba(255,111,212,.7)}}
+.voice-ov .transcript{max-width:560px;font-size:1.2rem;color:var(--ink);min-height:2em}
+.voice-ov .hint{color:var(--muted);font-size:.9rem}
+.voice-ctrls{display:flex;gap:12px}
+
+/* toast */
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);z-index:120;background:var(--panel-2);border:1px solid var(--line);color:var(--ink);padding:14px 22px;border-radius:100px;font-weight:600;font-size:.9rem;opacity:0;transition:.35s;pointer-events:none;box-shadow:0 14px 40px rgba(0,0,0,.4)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{border-color:var(--lime)}.toast.err{border-color:var(--magenta)}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:44px 0 30px;margin-top:40px}
+body.app-mode footer{border-color:var(--app-line);background:#fff}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:26px;margin-bottom:28px}
+.foot-grid h5{font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:12px}
+.foot-grid a{display:block;color:var(--muted);font-size:.9rem;margin-bottom:8px;cursor:pointer}
+.foot-grid a:hover{color:var(--cyan)}
+body.app-mode .foot-grid a{color:var(--app-muted)}
+.foot-bottom{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:.85rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+body.app-mode .foot-bottom{border-color:var(--app-line)}
+
+@media(max-width:860px){
+  .g3,.g2,.g4{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .nav-links.open{display:flex;position:absolute;top:66px;left:0;right:0;flex-direction:column;background:var(--bg-2);padding:18px;gap:14px;border-bottom:1px solid var(--line)}
+  body.app-mode .nav-links.open{background:#fff}
+  .burger{display:block}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bg-fx"></div><span class="orb a"></span><span class="orb b"></span>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="logo" data-nav="home"><span class="mk"><img src="/logo-icon.png" alt="AZ AI Geeks logo" width="71" height="38" /></span> AZ AI Geeks</a>
+    <nav class="nav-links" id="navlinks">
+      <a data-nav="home" data-i18n="nav.home">Home</a>
+      <a data-nav="about" data-i18n="nav.about">About</a>
+      <a data-nav="services" data-i18n="nav.services">Services</a>
+      <a data-nav="book" data-i18n="nav.book">Book</a>
+      <a data-nav="appointments" data-i18n="nav.appts">My Appointments</a>
+      <a data-nav="contact" data-i18n="nav.contact">Contact</a>
+      <a data-nav="faq" data-i18n="nav.faq">FAQ</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang">
+        <button class="lang-btn" id="langBtn"><span id="langFlag">🇺🇸</span> <span id="langCode">EN</span> ▾</button>
+        <div class="lang-menu" id="langMenu">
+          <button data-lang="en">🇺🇸 English</button>
+          <button data-lang="es">🇲🇽 Español</button>
+          <button data-lang="fr">🇫🇷 Français</button>
+        </div>
+      </div>
+      <a class="btn btn-ghost btn-sm" id="authNav" data-nav="login" data-i18n="nav.login">Log in</a>
+      <button class="burger" id="burger">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+
+  <!-- ================= HOME ================= -->
+  <div class="page active" data-page="home">
+    <section class="hero wrap">
+      <span class="eyebrow" data-i18n="home.eyebrow">AI-Powered Booking Portal</span>
+      <h1><span data-i18n="home.h1a">Book, chat, or</span> <span class="gradient-text" data-i18n="home.h1b">just talk to us.</span></h1>
+      <p class="lead" data-i18n="home.lead">Meet your 24/7 AI assistant. Ask a question, get matched to the right service, and book an appointment — by text or voice, in your language. No hold music, ever.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" data-nav="book" data-i18n="home.cta1">Book an Appointment →</button>
+        <button class="btn btn-ghost" id="heroVoice" data-i18n="home.cta2">🎙 Talk to the AI</button>
+      </div>
+      <div class="trust">
+        <span><b>24/7</b> <span data-i18n="home.t1">AI answering</span></span>
+        <span><b>3</b> <span data-i18n="home.t2">languages</span></span>
+        <span><b>60s</b> <span data-i18n="home.t3">to book</span></span>
+      </div>
+    </section>
+    <section class="wrap">
+      <div class="sec-head"><span class="eyebrow" data-i18n="home.f_eye">What you can do</span><h2 data-i18n="home.f_h">Everything through <span class="gradient-text">one assistant.</span></h2></div>
+      <div class="grid g3">
+        <div class="card"><div class="ic">💬</div><h3 data-i18n="home.f1t">Chat with AI</h3><p data-i18n="home.f1p">Ask about services, hours, and pricing. Get instant, accurate answers from our knowledge base.</p></div>
+        <div class="card"><div class="ic">🎙</div><h3 data-i18n="home.f2t">Voice assistant</h3><p data-i18n="home.f2p">Prefer talking? Speak naturally and the AI responds with a human-like voice, in real time.</p></div>
+        <div class="card"><div class="ic">📅</div><h3 data-i18n="home.f3t">Self-serve booking</h3><p data-i18n="home.f3p">Book, reschedule, or cancel anytime. Confirmations land instantly by email and SMS.</p></div>
+        <div class="card"><div class="ic">🌐</div><h3 data-i18n="home.f4t">Your language</h3><p data-i18n="home.f4p">Switch between English, Spanish, and French instantly — the whole site follows you.</p></div>
+        <div class="card"><div class="ic">🔒</div><h3 data-i18n="home.f5t">Secure account</h3><p data-i18n="home.f5p">Log in to see every upcoming appointment and manage your profile in one place.</p></div>
+        <div class="card"><div class="ic">🤝</div><h3 data-i18n="home.f6t">Human handoff</h3><p data-i18n="home.f6p">Need a person? The AI escalates to a human the moment it can't help.</p></div>
+      </div>
+    </section>
+    <section class="wrap" style="padding-top:0">
+      <div class="panel" style="text-align:center;background:linear-gradient(120deg,rgba(165,129,255,.18),rgba(84,236,255,.1))">
+        <h2 style="font-size:1.9rem;margin-bottom:10px" data-i18n="home.cta_h">Ready in about 60 seconds.</h2>
+        <p class="lead" style="margin-bottom:22px" data-i18n="home.cta_p">Pick a service, choose a time, done. Your AI receptionist handles the rest.</p>
+        <button class="btn btn-primary" data-nav="book" data-i18n="home.cta_b">Start Booking</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= ABOUT ================= -->
+  <div class="page" data-page="about">
+    <section class="wrap app-shell">
+      <div class="sec-head"><span class="eyebrow" data-i18n="about.eye">About us</span><h2 data-i18n="about.h">Human service, <span class="gradient-text">AI speed.</span></h2></div>
+      <div style="max-width:760px;margin:0 auto 40px" class="center">
+        <p class="lead" data-i18n="about.p1">AZ AI Geeks builds conversion-focused websites and AI receptionists for local businesses. This portal is how your customers reach you — book a service, ask a question, or talk to the assistant, any hour of any day.</p>
+      </div>
+      <div class="grid g3">
+        <div class="card"><div class="ic">🎯</div><h3 data-i18n="about.m1t">Our mission</h3><p data-i18n="about.m1p">No customer should ever hit a voicemail and give up. We make every business instantly reachable.</p></div>
+        <div class="card"><div class="ic">⚡</div><h3 data-i18n="about.m2t">How we work</h3><p data-i18n="about.m2p">AI first, humans always in reach. The assistant handles the routine so our team can handle the exceptions.</p></div>
+        <div class="card"><div class="ic">🛡</div><h3 data-i18n="about.m3t">Your trust</h3><p data-i18n="about.m3p">The AI only answers from a verified knowledge base. It never invents hours, prices, or promises.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= SERVICES ================= -->
+  <div class="page" data-page="services">
+    <section class="wrap app-shell">
+      <div class="sec-head"><span class="eyebrow" data-i18n="svc.eye">Services</span><h2 data-i18n="svc.h">Book the right <span class="gradient-text">fit.</span></h2><p class="lead" data-i18n="svc.p">Not sure which one? Ask the AI assistant — bottom right — and it'll match you.</p></div>
+      <div class="grid g2" id="svcGrid"></div>
+    </section>
+  </div>
+
+  <!-- ================= BOOK ================= -->
+  <div class="page" data-page="book">
+    <section class="wrap app-shell">
+      <div class="panel" style="max-width:760px;margin:0 auto">
+        <h2 class="page-title" data-i18n="book.h">Book an appointment</h2>
+        <p class="page-sub" data-i18n="book.sub">Four quick steps. You can also just tell the AI assistant what you need.</p>
+        <div class="stepper" id="stepper">
+          <div class="st on" data-i18n="book.s1">1 · Service</div>
+          <div class="st" data-i18n="book.s2">2 · Staff</div>
+          <div class="st" data-i18n="book.s3">3 · Date & Time</div>
+          <div class="st" data-i18n="book.s4">4 · Confirm</div>
+        </div>
+        <div id="bookBody"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= MY APPOINTMENTS ================= -->
+  <div class="page" data-page="appointments">
+    <section class="wrap app-shell">
+      <div class="panel" style="max-width:820px;margin:0 auto" id="apptPanel"></div>
+    </section>
+  </div>
+
+  <!-- ================= CONTACT ================= -->
+  <div class="page" data-page="contact">
+    <section class="wrap app-shell">
+      <div class="panel form-narrow">
+        <h2 class="page-title" data-i18n="contact.h">Contact us</h2>
+        <p class="page-sub" data-i18n="contact.sub">Send a message, or use the chat/voice assistant for an instant reply.</p>
+        <form id="contactForm">
+          <div class="field"><label data-i18n="contact.name">Name</label><input class="input" required></div>
+          <div class="field"><label data-i18n="contact.email">Email</label><input class="input" type="email" required></div>
+          <div class="field"><label data-i18n="contact.msg">Message</label><textarea class="input" rows="4" required></textarea></div>
+          <button class="btn btn-primary block" data-i18n="contact.send">Send message</button>
+        </form>
+        <div style="margin-top:22px;text-align:center" class="lead">
+          <span data-i18n="contact.or">Or reach us at</span> <a href="mailto:hello@azaigeeks.com" style="color:var(--app-accent);font-weight:700">hello@azaigeeks.com</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= FAQ ================= -->
+  <div class="page" data-page="faq">
+    <section class="wrap app-shell">
+      <div class="sec-head"><span class="eyebrow" data-i18n="faq.eye">FAQ</span><h2 data-i18n="faq.h">Questions, <span class="gradient-text">answered.</span></h2></div>
+      <div style="max-width:780px;margin:0 auto" id="faqList"></div>
+    </section>
+  </div>
+
+  <!-- ================= LOGIN ================= -->
+  <div class="page" data-page="login">
+    <section class="wrap app-shell">
+      <div class="panel form-narrow">
+        <h2 class="page-title" data-i18n="login.h">Welcome back</h2>
+        <p class="page-sub" data-i18n="login.sub">Log in to manage your appointments.</p>
+        <form id="loginForm">
+          <div class="field"><label data-i18n="login.email">Email</label><input class="input" id="loginEmail" type="email" required></div>
+          <div class="field"><label data-i18n="login.pw">Password</label><input class="input" id="loginPw" type="password" required></div>
+          <button class="btn btn-primary block" data-i18n="login.btn">Log in</button>
+        </form>
+        <p class="lead" style="text-align:center;margin-top:18px"><span data-i18n="login.no">No account?</span> <a data-nav="register" style="color:var(--app-accent);font-weight:700;cursor:pointer" data-i18n="login.reg">Create one</a></p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= REGISTER ================= -->
+  <div class="page" data-page="register">
+    <section class="wrap app-shell">
+      <div class="panel form-narrow">
+        <h2 class="page-title" data-i18n="reg.h">Create your account</h2>
+        <p class="page-sub" data-i18n="reg.sub">It takes a few seconds.</p>
+        <form id="regForm">
+          <div class="field"><label data-i18n="reg.name">Full name</label><input class="input" id="regName" required></div>
+          <div class="field"><label data-i18n="reg.email">Email</label><input class="input" id="regEmail" type="email" required></div>
+          <div class="field"><label data-i18n="reg.pw">Password</label><input class="input" id="regPw" type="password" minlength="4" required></div>
+          <button class="btn btn-primary block" data-i18n="reg.btn">Create account</button>
+        </form>
+        <p class="lead" style="text-align:center;margin-top:18px"><span data-i18n="reg.have">Already have one?</span> <a data-nav="login" style="color:var(--app-accent);font-weight:700;cursor:pointer" data-i18n="reg.login">Log in</a></p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= PRIVACY ================= -->
+  <div class="page" data-page="privacy">
+    <section class="wrap app-shell legal">
+      <h2 class="page-title" data-i18n="priv.h">Privacy Policy</h2>
+      <p class="page-sub">Last updated: 2026</p>
+      <p class="lead" data-i18n="priv.intro">This prototype stores your demo account and appointments locally in your browser only. In production, data is handled as described below.</p>
+      <h3 data-i18n="priv.h1">What we collect</h3><p data-i18n="priv.p1">Name, email, phone, and appointment details you provide to book and manage services.</p>
+      <h3 data-i18n="priv.h2">How we use it</h3><p data-i18n="priv.p2">To schedule appointments, send confirmations and reminders, and improve our service. We never sell your data.</p>
+      <h3 data-i18n="priv.h3">AI processing</h3><p data-i18n="priv.p3">Conversations may be processed by AI to answer questions and book appointments. The AI answers only from a verified knowledge base.</p>
+      <h3 data-i18n="priv.h4">Your rights</h3><p data-i18n="priv.p4">You can request access to, correction of, or deletion of your data at any time by contacting hello@azaigeeks.com.</p>
+    </section>
+  </div>
+
+  <!-- ================= TERMS ================= -->
+  <div class="page" data-page="terms">
+    <section class="wrap app-shell legal">
+      <h2 class="page-title" data-i18n="terms.h">Terms of Service</h2>
+      <p class="page-sub">Last updated: 2026</p>
+      <p class="lead" data-i18n="terms.intro">By using this portal you agree to the following terms.</p>
+      <h3 data-i18n="terms.h1">Use of service</h3><p data-i18n="terms.p1">This portal lets you book and manage appointments. You agree to provide accurate information.</p>
+      <h3 data-i18n="terms.h2">Cancellations</h3><p data-i18n="terms.p2">You may reschedule or cancel appointments through the portal or the AI assistant, subject to the business's cancellation window.</p>
+      <h3 data-i18n="terms.h3">AI assistant</h3><p data-i18n="terms.p3">The AI provides information and booking help. For binding quotes or complex needs, a human team member will confirm.</p>
+      <h3 data-i18n="terms.h4">Liability</h3><p data-i18n="terms.p4">This is a demonstration prototype provided as-is, without warranty. Production terms will be provided at launch.</p>
+    </section>
+  </div>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="logo" data-nav="home" style="margin-bottom:12px"><span class="mk"><img src="/logo-icon.png" alt="AZ AI Geeks logo" width="71" height="38" /></span> AZ AI Geeks</a>
+        <p class="lead" style="font-size:.9rem;max-width:32ch" data-i18n="foot.tag">Websites that sell. Calls that close. Booking that runs itself.</p>
+      </div>
+      <div><h5 data-i18n="foot.explore">Explore</h5><a data-nav="home" data-i18n="nav.home">Home</a><a data-nav="services" data-i18n="nav.services">Services</a><a data-nav="book" data-i18n="nav.book">Book</a><a data-nav="faq" data-i18n="nav.faq">FAQ</a></div>
+      <div><h5 data-i18n="foot.account">Account</h5><a data-nav="login" data-i18n="nav.login">Log in</a><a data-nav="register" data-i18n="reg.h">Register</a><a data-nav="appointments" data-i18n="nav.appts">My Appointments</a><a data-nav="contact" data-i18n="nav.contact">Contact</a></div>
+      <div><h5 data-i18n="foot.legal">Legal</h5><a data-nav="privacy" data-i18n="priv.h">Privacy Policy</a><a data-nav="terms" data-i18n="terms.h">Terms of Service</a></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 AZ AI Geeks.</span><span data-i18n="foot.rights">All rights reserved.</span></div>
+  </div>
+</footer>
+
+<!-- ============ AI CHAT + VOICE ============ -->
+<div class="fab-wrap" id="fabWrap">
+  <button class="fab mic" id="fabVoice" title="Voice assistant">🎙</button>
+  <button class="fab" id="fabChat" title="Chat">💬</button>
+</div>
+
+<div class="chat" id="chat">
+  <div class="chat-head">
+    <div class="av">🤖</div>
+    <div><h4 data-i18n="chat.title">AZ Assistant</h4><div class="status" data-i18n="chat.online">Online · replies instantly</div></div>
+    <button class="x" id="chatClose">×</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chips" id="chatChips"></div>
+  <div class="chat-in">
+    <button class="mic-btn" id="chatMic" title="Speak">🎙</button>
+    <input id="chatInput" data-i18n-ph="chat.ph" placeholder="Type a message…" />
+    <button id="chatSend">➤</button>
+  </div>
+</div>
+
+<!-- voice overlay -->
+<div class="voice-ov" id="voiceOv">
+  <div class="voice-orb" id="voiceOrb">🎙</div>
+  <div class="transcript" id="voiceTranscript" data-i18n="voice.tap">Tap the orb and start speaking…</div>
+  <div class="hint" id="voiceHint" data-i18n="voice.hint">Your browser handles speech — English, Spanish, or French.</div>
+  <div class="voice-ctrls">
+    <button class="btn btn-ghost" id="voiceToggle" data-i18n="voice.listen">🎙 Start listening</button>
+    <button class="btn btn-primary" id="voiceEnd" data-i18n="voice.close">Close</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   1. i18n DICTIONARY
+   ===================================================================== */
+const I18N={
+  en:{
+    "nav.home":"Home","nav.about":"About","nav.services":"Services","nav.book":"Book","nav.appts":"My Appointments","nav.contact":"Contact","nav.faq":"FAQ","nav.login":"Log in",
+    "home.eyebrow":"AI-Powered Booking Portal","home.h1a":"Book, chat, or","home.h1b":"just talk to us.","home.lead":"Meet your 24/7 AI assistant. Ask a question, get matched to the right service, and book an appointment — by text or voice, in your language. No hold music, ever.","home.cta1":"Book an Appointment →","home.cta2":"🎙 Talk to the AI","home.t1":"AI answering","home.t2":"languages","home.t3":"to book",
+    "home.f_eye":"What you can do","home.f_h":"Everything through one assistant.","home.f1t":"Chat with AI","home.f1p":"Ask about services, hours, and pricing. Get instant, accurate answers from our knowledge base.","home.f2t":"Voice assistant","home.f2p":"Prefer talking? Speak naturally and the AI responds with a human-like voice, in real time.","home.f3t":"Self-serve booking","home.f3p":"Book, reschedule, or cancel anytime. Confirmations land instantly by email and SMS.","home.f4t":"Your language","home.f4p":"Switch between English, Spanish, and French instantly — the whole site follows you.","home.f5t":"Secure account","home.f5p":"Log in to see every upcoming appointment and manage your profile in one place.","home.f6t":"Human handoff","home.f6p":"Need a person? The AI escalates to a human the moment it can't help.",
+    "home.cta_h":"Ready in about 60 seconds.","home.cta_p":"Pick a service, choose a time, done. Your AI receptionist handles the rest.","home.cta_b":"Start Booking",
+    "about.eye":"About us","about.h":"Human service, AI speed.","about.p1":"AZ AI Geeks builds conversion-focused websites and AI receptionists for local businesses. This portal is how your customers reach you — book a service, ask a question, or talk to the assistant, any hour of any day.","about.m1t":"Our mission","about.m1p":"No customer should ever hit a voicemail and give up. We make every business instantly reachable.","about.m2t":"How we work","about.m2p":"AI first, humans always in reach. The assistant handles the routine so our team can handle the exceptions.","about.m3t":"Your trust","about.m3p":"The AI only answers from a verified knowledge base. It never invents hours, prices, or promises.",
+    "svc.eye":"Services","svc.h":"Book the right fit.","svc.p":"Not sure which one? Ask the AI assistant — bottom right — and it'll match you.",
+    "book.h":"Book an appointment","book.sub":"Four quick steps. You can also just tell the AI assistant what you need.","book.s1":"1 · Service","book.s2":"2 · Staff","book.s3":"3 · Date & Time","book.s4":"4 · Confirm",
+    "contact.h":"Contact us","contact.sub":"Send a message, or use the chat/voice assistant for an instant reply.","contact.name":"Name","contact.email":"Email","contact.msg":"Message","contact.send":"Send message","contact.or":"Or reach us at",
+    "faq.eye":"FAQ","faq.h":"Questions, answered.",
+    "login.h":"Welcome back","login.sub":"Log in to manage your appointments.","login.email":"Email","login.pw":"Password","login.btn":"Log in","login.no":"No account?","login.reg":"Create one",
+    "reg.h":"Create your account","reg.sub":"It takes a few seconds.","reg.name":"Full name","reg.email":"Email","reg.pw":"Password","reg.btn":"Create account","reg.have":"Already have one?","reg.login":"Log in",
+    "priv.h":"Privacy Policy","priv.intro":"This prototype stores your demo account and appointments locally in your browser only. In production, data is handled as described below.","priv.h1":"What we collect","priv.p1":"Name, email, phone, and appointment details you provide to book and manage services.","priv.h2":"How we use it","priv.p2":"To schedule appointments, send confirmations and reminders, and improve our service. We never sell your data.","priv.h3":"AI processing","priv.p3":"Conversations may be processed by AI to answer questions and book appointments. The AI answers only from a verified knowledge base.","priv.h4":"Your rights","priv.p4":"You can request access to, correction of, or deletion of your data at any time by contacting hello@azaigeeks.com.",
+    "terms.h":"Terms of Service","terms.intro":"By using this portal you agree to the following terms.","terms.h1":"Use of service","terms.p1":"This portal lets you book and manage appointments. You agree to provide accurate information.","terms.h2":"Cancellations","terms.p2":"You may reschedule or cancel appointments through the portal or the AI assistant, subject to the business's cancellation window.","terms.h3":"AI assistant","terms.p3":"The AI provides information and booking help. For binding quotes or complex needs, a human team member will confirm.","terms.h4":"Liability","terms.p4":"This is a demonstration prototype provided as-is, without warranty. Production terms will be provided at launch.",
+    "foot.tag":"Websites that sell. Calls that close. Booking that runs itself.","foot.explore":"Explore","foot.account":"Account","foot.legal":"Legal","foot.rights":"All rights reserved.",
+    "chat.title":"AZ Assistant","chat.online":"Online · replies instantly","chat.ph":"Type a message…",
+    "voice.tap":"Tap the orb and start speaking…","voice.hint":"Your browser handles speech — English, Spanish, or French.","voice.listen":"🎙 Start listening","voice.close":"Close","voice.stop":"■ Stop",
+    "chat.greet":"Hi! I'm the AZ AI assistant 👋 I can answer questions, help you pick a service, and book, reschedule, or cancel an appointment. What can I do for you?",
+    "book.next":"Next →","book.back":"← Back","book.confirm":"Confirm booking","book.staffany":"No preference","book.chooseDate":"Choose a date","book.summary":"Summary","book.booked":"You're booked! 🎉","book.done":"View my appointments",
+    "appt.h":"My appointments","appt.subIn":"Manage everything in one place.","appt.none":"No upcoming appointments yet.","appt.book":"Book one now","appt.resched":"Reschedule","appt.cancel":"Cancel","appt.loginReq":"Please log in to view your appointments.","appt.gotoLogin":"Go to login","appt.welcome":"Signed in as","appt.logout":"Log out",
+    "toast.login":"Logged in — welcome back!","toast.reg":"Account created — you're in!","toast.logout":"Logged out.","toast.booked":"Appointment confirmed!","toast.cancelled":"Appointment cancelled.","toast.resched":"Appointment rescheduled.","toast.sent":"Message sent — we'll reply shortly.","toast.loginfail":"No account found — try registering.","toast.lang":"Language switched"
+  },
+  es:{
+    "nav.home":"Inicio","nav.about":"Nosotros","nav.services":"Servicios","nav.book":"Reservar","nav.appts":"Mis Citas","nav.contact":"Contacto","nav.faq":"Preguntas","nav.login":"Entrar",
+    "home.eyebrow":"Portal de Reservas con IA","home.h1a":"Reserva, chatea o","home.h1b":"solo háblanos.","home.lead":"Tu asistente de IA 24/7. Haz una pregunta, encuentra el servicio ideal y reserva una cita — por texto o voz, en tu idioma. Sin música de espera.","home.cta1":"Reservar una cita →","home.cta2":"🎙 Habla con la IA","home.t1":"atención con IA","home.t2":"idiomas","home.t3":"para reservar",
+    "home.f_eye":"Lo que puedes hacer","home.f_h":"Todo con un solo asistente.","home.f1t":"Chatea con IA","home.f1p":"Pregunta por servicios, horarios y precios. Respuestas al instante desde nuestra base de conocimiento.","home.f2t":"Asistente de voz","home.f2p":"¿Prefieres hablar? Habla con naturalidad y la IA responde con voz humana, en tiempo real.","home.f3t":"Reserva tú mismo","home.f3p":"Reserva, reprograma o cancela cuando quieras. Confirmaciones al instante por correo y SMS.","home.f4t":"Tu idioma","home.f4p":"Cambia entre inglés, español y francés al instante — todo el sitio te sigue.","home.f5t":"Cuenta segura","home.f5p":"Inicia sesión para ver todas tus citas y gestionar tu perfil en un solo lugar.","home.f6t":"Pase a humano","home.f6p":"¿Necesitas a una persona? La IA te transfiere a un humano cuando no puede ayudar.",
+    "home.cta_h":"Listo en unos 60 segundos.","home.cta_p":"Elige un servicio, elige una hora, listo. Tu recepcionista de IA hace el resto.","home.cta_b":"Comenzar a reservar",
+    "about.eye":"Nosotros","about.h":"Servicio humano, velocidad de IA.","about.p1":"AZ AI Geeks crea sitios web enfocados en conversión y recepcionistas de IA para negocios locales. Este portal es como tus clientes te contactan — reservar, preguntar o hablar con el asistente, a cualquier hora.","about.m1t":"Nuestra misión","about.m1p":"Ningún cliente debería toparse con un buzón de voz y rendirse. Hacemos que cada negocio sea localizable al instante.","about.m2t":"Cómo trabajamos","about.m2p":"IA primero, humanos siempre disponibles. El asistente maneja lo rutinario para que el equipo maneje las excepciones.","about.m3t":"Tu confianza","about.m3p":"La IA solo responde desde una base verificada. Nunca inventa horarios, precios ni promesas.",
+    "svc.eye":"Servicios","svc.h":"Reserva la opción ideal.","svc.p":"¿No sabes cuál? Pregúntale al asistente de IA — abajo a la derecha — y te ayudará.",
+    "book.h":"Reservar una cita","book.sub":"Cuatro pasos rápidos. También puedes decirle al asistente lo que necesitas.","book.s1":"1 · Servicio","book.s2":"2 · Personal","book.s3":"3 · Fecha y hora","book.s4":"4 · Confirmar",
+    "contact.h":"Contáctanos","contact.sub":"Envía un mensaje o usa el asistente de chat/voz para una respuesta inmediata.","contact.name":"Nombre","contact.email":"Correo","contact.msg":"Mensaje","contact.send":"Enviar mensaje","contact.or":"O escríbenos a",
+    "faq.eye":"Preguntas","faq.h":"Preguntas, resueltas.",
+    "login.h":"Bienvenido de nuevo","login.sub":"Inicia sesión para gestionar tus citas.","login.email":"Correo","login.pw":"Contraseña","login.btn":"Entrar","login.no":"¿Sin cuenta?","login.reg":"Crea una",
+    "reg.h":"Crea tu cuenta","reg.sub":"Toma unos segundos.","reg.name":"Nombre completo","reg.email":"Correo","reg.pw":"Contraseña","reg.btn":"Crear cuenta","reg.have":"¿Ya tienes una?","reg.login":"Entrar",
+    "priv.h":"Política de Privacidad","priv.intro":"Este prototipo guarda tu cuenta y citas solo localmente en tu navegador. En producción, los datos se manejan como se describe.","priv.h1":"Qué recopilamos","priv.p1":"Nombre, correo, teléfono y detalles de la cita que proporcionas para reservar y gestionar servicios.","priv.h2":"Cómo lo usamos","priv.p2":"Para agendar citas, enviar confirmaciones y recordatorios, y mejorar el servicio. Nunca vendemos tus datos.","priv.h3":"Procesamiento con IA","priv.p3":"Las conversaciones pueden ser procesadas por IA para responder y reservar. La IA solo responde desde una base verificada.","priv.h4":"Tus derechos","priv.p4":"Puedes solicitar acceso, corrección o eliminación de tus datos escribiendo a hello@azaigeeks.com.",
+    "terms.h":"Términos del Servicio","terms.intro":"Al usar este portal aceptas los siguientes términos.","terms.h1":"Uso del servicio","terms.p1":"Este portal te permite reservar y gestionar citas. Aceptas dar información precisa.","terms.h2":"Cancelaciones","terms.p2":"Puedes reprogramar o cancelar citas por el portal o el asistente de IA, según la ventana de cancelación del negocio.","terms.h3":"Asistente de IA","terms.p3":"La IA da información y ayuda a reservar. Para cotizaciones formales, un miembro del equipo lo confirmará.","terms.h4":"Responsabilidad","terms.p4":"Este es un prototipo de demostración provisto tal cual, sin garantía. Los términos de producción se darán al lanzamiento.",
+    "foot.tag":"Sitios que venden. Llamadas que cierran. Reservas en automático.","foot.explore":"Explorar","foot.account":"Cuenta","foot.legal":"Legal","foot.rights":"Todos los derechos reservados.",
+    "chat.title":"Asistente AZ","chat.online":"En línea · responde al instante","chat.ph":"Escribe un mensaje…",
+    "voice.tap":"Toca la esfera y empieza a hablar…","voice.hint":"Tu navegador procesa la voz — inglés, español o francés.","voice.listen":"🎙 Empezar a escuchar","voice.close":"Cerrar","voice.stop":"■ Detener",
+    "chat.greet":"¡Hola! Soy el asistente de IA de AZ 👋 Puedo responder preguntas, ayudarte a elegir un servicio y reservar, reprogramar o cancelar una cita. ¿En qué te ayudo?",
+    "book.next":"Siguiente →","book.back":"← Atrás","book.confirm":"Confirmar reserva","book.staffany":"Sin preferencia","book.chooseDate":"Elige una fecha","book.summary":"Resumen","book.booked":"¡Reservado! 🎉","book.done":"Ver mis citas",
+    "appt.h":"Mis citas","appt.subIn":"Gestiona todo en un solo lugar.","appt.none":"Aún no tienes citas próximas.","appt.book":"Reserva una ahora","appt.resched":"Reprogramar","appt.cancel":"Cancelar","appt.loginReq":"Inicia sesión para ver tus citas.","appt.gotoLogin":"Ir a iniciar sesión","appt.welcome":"Sesión de","appt.logout":"Salir",
+    "toast.login":"Sesión iniciada — ¡bienvenido!","toast.reg":"Cuenta creada — ¡ya estás dentro!","toast.logout":"Sesión cerrada.","toast.booked":"¡Cita confirmada!","toast.cancelled":"Cita cancelada.","toast.resched":"Cita reprogramada.","toast.sent":"Mensaje enviado — responderemos pronto.","toast.loginfail":"No hay cuenta — intenta registrarte.","toast.lang":"Idioma cambiado"
+  },
+  fr:{
+    "nav.home":"Accueil","nav.about":"À propos","nav.services":"Services","nav.book":"Réserver","nav.appts":"Mes RDV","nav.contact":"Contact","nav.faq":"FAQ","nav.login":"Connexion",
+    "home.eyebrow":"Portail de Réservation par IA","home.h1a":"Réservez, discutez ou","home.h1b":"parlez-nous.","home.lead":"Votre assistant IA 24/7. Posez une question, trouvez le bon service et réservez un rendez-vous — par texte ou voix, dans votre langue. Sans musique d'attente.","home.cta1":"Réserver →","home.cta2":"🎙 Parler à l'IA","home.t1":"réponse IA","home.t2":"langues","home.t3":"pour réserver",
+    "home.f_eye":"Ce que vous pouvez faire","home.f_h":"Tout via un seul assistant.","home.f1t":"Discuter avec l'IA","home.f1p":"Posez des questions sur les services, horaires et tarifs. Réponses instantanées et fiables.","home.f2t":"Assistant vocal","home.f2p":"Vous préférez parler ? Parlez naturellement et l'IA répond avec une voix humaine, en temps réel.","home.f3t":"Réservation autonome","home.f3p":"Réservez, reportez ou annulez à tout moment. Confirmations instantanées par e-mail et SMS.","home.f4t":"Votre langue","home.f4p":"Basculez entre anglais, espagnol et français instantanément — tout le site suit.","home.f5t":"Compte sécurisé","home.f5p":"Connectez-vous pour voir tous vos rendez-vous et gérer votre profil.","home.f6t":"Relais humain","home.f6p":"Besoin d'une personne ? L'IA transfère à un humain dès qu'elle ne peut pas aider.",
+    "home.cta_h":"Prêt en 60 secondes environ.","home.cta_p":"Choisissez un service, une heure, c'est fait. Votre réceptionniste IA gère le reste.","home.cta_b":"Commencer",
+    "about.eye":"À propos","about.h":"Service humain, vitesse IA.","about.p1":"AZ AI Geeks crée des sites orientés conversion et des réceptionnistes IA pour les entreprises locales. Ce portail est la façon dont vos clients vous contactent — réserver, poser une question ou parler à l'assistant, à toute heure.","about.m1t":"Notre mission","about.m1p":"Aucun client ne devrait tomber sur une messagerie et abandonner. Nous rendons chaque entreprise joignable instantanément.","about.m2t":"Notre méthode","about.m2p":"L'IA d'abord, les humains toujours disponibles. L'assistant gère la routine, l'équipe gère les exceptions.","about.m3t":"Votre confiance","about.m3p":"L'IA répond uniquement depuis une base vérifiée. Elle n'invente jamais d'horaires, de prix ni de promesses.",
+    "svc.eye":"Services","svc.h":"Réservez le bon service.","svc.p":"Vous hésitez ? Demandez à l'assistant IA — en bas à droite — il vous orientera.",
+    "book.h":"Réserver un rendez-vous","book.sub":"Quatre étapes rapides. Vous pouvez aussi le dire à l'assistant IA.","book.s1":"1 · Service","book.s2":"2 · Personnel","book.s3":"3 · Date et heure","book.s4":"4 · Confirmer",
+    "contact.h":"Contactez-nous","contact.sub":"Envoyez un message ou utilisez l'assistant chat/voix pour une réponse immédiate.","contact.name":"Nom","contact.email":"E-mail","contact.msg":"Message","contact.send":"Envoyer","contact.or":"Ou écrivez-nous à",
+    "faq.eye":"FAQ","faq.h":"Questions, réponses.",
+    "login.h":"Bon retour","login.sub":"Connectez-vous pour gérer vos rendez-vous.","login.email":"E-mail","login.pw":"Mot de passe","login.btn":"Connexion","login.no":"Pas de compte ?","login.reg":"Créer",
+    "reg.h":"Créez votre compte","reg.sub":"Quelques secondes suffisent.","reg.name":"Nom complet","reg.email":"E-mail","reg.pw":"Mot de passe","reg.btn":"Créer le compte","reg.have":"Déjà inscrit ?","reg.login":"Connexion",
+    "priv.h":"Politique de Confidentialité","priv.intro":"Ce prototype stocke votre compte et vos rendez-vous localement dans votre navigateur. En production, les données sont traitées comme décrit.","priv.h1":"Ce que nous collectons","priv.p1":"Nom, e-mail, téléphone et détails du rendez-vous que vous fournissez.","priv.h2":"Comment nous l'utilisons","priv.p2":"Pour planifier, envoyer confirmations et rappels, et améliorer le service. Nous ne vendons jamais vos données.","priv.h3":"Traitement par IA","priv.p3":"Les conversations peuvent être traitées par l'IA pour répondre et réserver. L'IA répond uniquement depuis une base vérifiée.","priv.h4":"Vos droits","priv.p4":"Vous pouvez demander l'accès, la correction ou la suppression de vos données via hello@azaigeeks.com.",
+    "terms.h":"Conditions d'Utilisation","terms.intro":"En utilisant ce portail, vous acceptez les conditions suivantes.","terms.h1":"Utilisation","terms.p1":"Ce portail permet de réserver et gérer des rendez-vous. Vous acceptez de fournir des informations exactes.","terms.h2":"Annulations","terms.p2":"Vous pouvez reporter ou annuler via le portail ou l'assistant IA, selon le délai d'annulation.","terms.h3":"Assistant IA","terms.p3":"L'IA fournit informations et aide à la réservation. Pour les devis fermes, un membre de l'équipe confirmera.","terms.h4":"Responsabilité","terms.p4":"Ceci est un prototype de démonstration fourni tel quel, sans garantie. Les conditions de production seront fournies au lancement.",
+    "foot.tag":"Des sites qui vendent. Des appels qui closent. Des réservations automatiques.","foot.explore":"Explorer","foot.account":"Compte","foot.legal":"Légal","foot.rights":"Tous droits réservés.",
+    "chat.title":"Assistant AZ","chat.online":"En ligne · réponse instantanée","chat.ph":"Écrivez un message…",
+    "voice.tap":"Touchez la sphère et parlez…","voice.hint":"Votre navigateur gère la voix — anglais, espagnol ou français.","voice.listen":"🎙 Écouter","voice.close":"Fermer","voice.stop":"■ Arrêter",
+    "chat.greet":"Bonjour ! Je suis l'assistant IA d'AZ 👋 Je peux répondre à vos questions, vous aider à choisir un service et réserver, reporter ou annuler un rendez-vous. Que puis-je faire ?",
+    "book.next":"Suivant →","book.back":"← Retour","book.confirm":"Confirmer","book.staffany":"Sans préférence","book.chooseDate":"Choisissez une date","book.summary":"Résumé","book.booked":"C'est réservé ! 🎉","book.done":"Voir mes rendez-vous",
+    "appt.h":"Mes rendez-vous","appt.subIn":"Gérez tout au même endroit.","appt.none":"Aucun rendez-vous à venir.","appt.book":"Réserver maintenant","appt.resched":"Reporter","appt.cancel":"Annuler","appt.loginReq":"Connectez-vous pour voir vos rendez-vous.","appt.gotoLogin":"Se connecter","appt.welcome":"Connecté en tant que","appt.logout":"Déconnexion",
+    "toast.login":"Connecté — bon retour !","toast.reg":"Compte créé — c'est parti !","toast.logout":"Déconnecté.","toast.booked":"Rendez-vous confirmé !","toast.cancelled":"Rendez-vous annulé.","toast.resched":"Rendez-vous reporté.","toast.sent":"Message envoyé — réponse rapide.","toast.loginfail":"Aucun compte — essayez de vous inscrire.","toast.lang":"Langue changée"
+  }
+};
+
+/* =====================================================================
+   2. DATA (knowledge base, services, staff, faq)
+   ===================================================================== */
+const SERVICES={
+  en:[
+    {id:"strategy",name:"Free Strategy Call",dur:"15 min",price:"Free",desc:"Map your goals and see if we're a fit. Zero pressure."},
+    {id:"website",name:"Website Build Consultation",dur:"30 min",price:"$0 deposit",desc:"Plan a conversion-engineered website for your business."},
+    {id:"ai",name:"AI Receptionist Setup",dur:"45 min",price:"From $1,050",desc:"Wire an AI receptionist into your business phone line."},
+    {id:"growth",name:"Growth Review",dur:"30 min",price:"Included",desc:"Monthly check-in — what's working and what we're adjusting."}
+  ],
+  es:[
+    {id:"strategy",name:"Llamada de Estrategia Gratis",dur:"15 min",price:"Gratis",desc:"Definimos tus metas y vemos si encajamos. Sin presión."},
+    {id:"website",name:"Consulta de Sitio Web",dur:"30 min",price:"$0 depósito",desc:"Planeamos un sitio web enfocado en conversión."},
+    {id:"ai",name:"Configuración de Recepcionista IA",dur:"45 min",price:"Desde $1,050",desc:"Conectamos una recepcionista de IA a tu línea telefónica."},
+    {id:"growth",name:"Revisión de Crecimiento",dur:"30 min",price:"Incluido",desc:"Revisión mensual — qué funciona y qué ajustamos."}
+  ],
+  fr:[
+    {id:"strategy",name:"Appel Stratégie Gratuit",dur:"15 min",price:"Gratuit",desc:"Définissons vos objectifs et voyons si on s'accorde. Sans pression."},
+    {id:"website",name:"Consultation Site Web",dur:"30 min",price:"0 $ d'acompte",desc:"Planifions un site orienté conversion pour votre entreprise."},
+    {id:"ai",name:"Installation Réceptionniste IA",dur:"45 min",price:"Dès 1 050 $",desc:"Connectons une réceptionniste IA à votre ligne téléphonique."},
+    {id:"growth",name:"Bilan de Croissance",dur:"30 min",price:"Inclus",desc:"Bilan mensuel — ce qui marche et ce qu'on ajuste."}
+  ]
+};
+const STAFF={
+  en:[{id:"any",name:"No preference"},{id:"alex",name:"Alex — Strategist"},{id:"sam",name:"Sam — Build Lead"},{id:"jordan",name:"Jordan — AI Engineer"}],
+  es:[{id:"any",name:"Sin preferencia"},{id:"alex",name:"Alex — Estratega"},{id:"sam",name:"Sam — Líder de Desarrollo"},{id:"jordan",name:"Jordan — Ingeniero IA"}],
+  fr:[{id:"any",name:"Sans préférence"},{id:"alex",name:"Alex — Stratège"},{id:"sam",name:"Sam — Chef de projet"},{id:"jordan",name:"Jordan — Ingénieur IA"}]
+};
+const FAQ={
+  en:[
+    ["What is the AI assistant?","An intelligent assistant that answers questions, books, reschedules, and cancels appointments 24/7 — by chat or voice — and hands off to a human when needed."],
+    ["Can I really book by voice?","Yes. Tap the microphone, speak naturally, and the assistant guides you through booking with a human-like voice."],
+    ["Which languages are supported?","English, Spanish, and French across the whole site, forms, chat, and voice — switch instantly, no reload."],
+    ["Do I need an account?","You can browse and chat freely. An account is only needed to view and manage your appointments."],
+    ["How do reminders work?","Confirmations and reminders are sent by email and SMS so you never miss a booking."],
+    ["Is my data safe?","Yes. The AI answers only from a verified knowledge base and never sells your data. See our Privacy Policy."]
+  ],
+  es:[
+    ["¿Qué es el asistente de IA?","Un asistente inteligente que responde preguntas, reserva, reprograma y cancela citas 24/7 — por chat o voz — y transfiere a un humano cuando hace falta."],
+    ["¿De verdad puedo reservar por voz?","Sí. Toca el micrófono, habla con naturalidad y el asistente te guía con una voz humana."],
+    ["¿Qué idiomas están disponibles?","Inglés, español y francés en todo el sitio, formularios, chat y voz — cambia al instante, sin recargar."],
+    ["¿Necesito una cuenta?","Puedes navegar y chatear libremente. Solo necesitas cuenta para ver y gestionar tus citas."],
+    ["¿Cómo funcionan los recordatorios?","Las confirmaciones y recordatorios se envían por correo y SMS para que no olvides tu cita."],
+    ["¿Mis datos están seguros?","Sí. La IA responde solo desde una base verificada y nunca vende tus datos. Consulta la Política de Privacidad."]
+  ],
+  fr:[
+    ["Qu'est-ce que l'assistant IA ?","Un assistant intelligent qui répond aux questions, réserve, reporte et annule des rendez-vous 24/7 — par chat ou voix — et transfère à un humain si besoin."],
+    ["Puis-je vraiment réserver par la voix ?","Oui. Touchez le micro, parlez naturellement, et l'assistant vous guide avec une voix humaine."],
+    ["Quelles langues sont prises en charge ?","Anglais, espagnol et français sur tout le site, formulaires, chat et voix — changez instantanément, sans recharger."],
+    ["Ai-je besoin d'un compte ?","Vous pouvez naviguer et discuter librement. Un compte n'est requis que pour gérer vos rendez-vous."],
+    ["Comment fonctionnent les rappels ?","Confirmations et rappels sont envoyés par e-mail et SMS pour ne rien oublier."],
+    ["Mes données sont-elles protégées ?","Oui. L'IA répond uniquement depuis une base vérifiée et ne vend jamais vos données. Voir la Politique de Confidentialité."]
+  ]
+};
+// AI knowledge base — intent → answer per language. AI answers ONLY from here.
+const KB={
+  en:{
+    hours:"We're available 24/7 through this portal and the AI assistant. Our human team works Mon–Fri, 9am–6pm.",
+    price:"Starter Site is $500 one-time, Growth Engine is $1,050 setup + $300/mo, and Full Domination is $10,000. The strategy call is free.",
+    services:"We offer four bookable services: a Free Strategy Call, Website Build Consultation, AI Receptionist Setup, and a monthly Growth Review. Want me to start a booking?",
+    location:"We work with businesses remotely across the US — everything happens by call and screen-share.",
+    contact:"You can email hello@azaigeeks.com, use this chat, or the voice assistant. Want me to book a call instead?",
+    human:"I'll connect you with a human team member — email hello@azaigeeks.com and they'll reply shortly. Anything I can help with in the meantime?",
+    fallback:"I can help with our services, pricing, hours, and booking or changing appointments. Could you rephrase that? You can also type 'book' to start a booking."
+  },
+  es:{
+    hours:"Estamos disponibles 24/7 por este portal y el asistente de IA. Nuestro equipo humano trabaja de lunes a viernes, 9am–6pm.",
+    price:"El Sitio Starter cuesta $500 único pago, Growth Engine $1,050 de instalación + $300/mes, y Full Domination $10,000. La llamada de estrategia es gratis.",
+    services:"Ofrecemos cuatro servicios: Llamada de Estrategia Gratis, Consulta de Sitio Web, Configuración de Recepcionista IA y Revisión de Crecimiento mensual. ¿Empiezo una reserva?",
+    location:"Trabajamos de forma remota con negocios en todo EE. UU. — todo se hace por llamada y pantalla compartida.",
+    contact:"Escríbenos a hello@azaigeeks.com, usa este chat o el asistente de voz. ¿Prefieres que agende una llamada?",
+    human:"Te conecto con una persona del equipo — escribe a hello@azaigeeks.com y responderán pronto. ¿Algo más mientras tanto?",
+    fallback:"Puedo ayudarte con servicios, precios, horarios y reservar o cambiar citas. ¿Puedes reformularlo? También puedes escribir 'reservar' para empezar."
+  },
+  fr:{
+    hours:"Nous sommes disponibles 24/7 via ce portail et l'assistant IA. Notre équipe humaine travaille du lundi au vendredi, 9h–18h.",
+    price:"Le Site Starter est à 500 $ unique, Growth Engine à 1 050 $ d'installation + 300 $/mois, et Full Domination à 10 000 $. L'appel stratégie est gratuit.",
+    services:"Nous proposons quatre services : Appel Stratégie Gratuit, Consultation Site Web, Installation Réceptionniste IA et Bilan de Croissance mensuel. Je lance une réservation ?",
+    location:"Nous travaillons à distance avec des entreprises partout aux États-Unis — tout se fait par appel et partage d'écran.",
+    contact:"Écrivez à hello@azaigeeks.com, utilisez ce chat ou l'assistant vocal. Voulez-vous que je réserve un appel ?",
+    human:"Je vous mets en relation avec un humain — écrivez à hello@azaigeeks.com et ils répondront vite. Puis-je aider en attendant ?",
+    fallback:"Je peux aider avec nos services, tarifs, horaires et la réservation ou modification de rendez-vous. Pouvez-vous reformuler ? Tapez aussi 'réserver' pour commencer."
+  }
+};
+// intent keyword matching per language
+const INTENTS=[
+  {k:"hours",w:{en:["hour","open","time","available","when"],es:["horario","hora","abren","abierto","disponible","cuando"],fr:["heure","ouvert","horaire","disponible","quand"]}},
+  {k:"price",w:{en:["price","cost","how much","fee","pricing","$"],es:["precio","costo","cuánto","cuanto","tarifa","cuesta"],fr:["prix","coût","cout","combien","tarif"]}},
+  {k:"services",w:{en:["service","offer","what do you","help with","do you do"],es:["servicio","ofrecen","qué hacen","que hacen","ayudan"],fr:["service","proposez","offrez","faites-vous","aide"]}},
+  {k:"location",w:{en:["where","location","address","area","near"],es:["dónde","donde","ubicación","dirección","zona"],fr:["où","ou","adresse","lieu","zone","région"]}},
+  {k:"contact",w:{en:["contact","email","phone","reach","call you"],es:["contacto","correo","teléfono","telefono","llamar"],fr:["contact","email","téléphone","telephone","joindre"]}},
+  {k:"human",w:{en:["human","person","agent","representative","real person","speak to someone"],es:["humano","persona","agente","representante","alguien real"],fr:["humain","personne","agent","représentant","quelqu'un"]}}
+];
+const BOOK_WORDS={en:["book","appointment","schedule","reserve"],es:["reservar","cita","agendar","agenda"],fr:["réserver","reserver","rendez-vous","rdv","planifier"]};
+const CANCEL_WORDS={en:["cancel"],es:["cancelar"],fr:["annuler"]};
+const RESCHED_WORDS={en:["reschedule","change","move"],es:["reprogramar","cambiar","mover"],fr:["reporter","changer","déplacer","modifier"]};
+
+/* =====================================================================
+   3. STATE + HELPERS
+   ===================================================================== */
+const LS={user:"azaz_user",appts:"azaz_appts",lang:"azaz_lang"};
+let LANG=localStorage.getItem(LS.lang)||"en";
+const $=s=>document.querySelector(s); const $$=s=>document.querySelectorAll(s);
+const t=k=>(I18N[LANG][k]||I18N.en[k]||k);
+function toast(key,type=""){const el=$("#toast");el.textContent=t(key);el.className="toast show "+type;setTimeout(()=>el.className="toast",2600);}
+function getUser(){try{return JSON.parse(localStorage.getItem(LS.user))}catch(e){return null}}
+function setUser(u){u?localStorage.setItem(LS.user,JSON.stringify(u)):localStorage.removeItem(LS.user);updateAuthNav();}
+function getAppts(){try{return JSON.parse(localStorage.getItem(LS.appts))||[]}catch(e){return[]}}
+function setAppts(a){localStorage.setItem(LS.appts,JSON.stringify(a));}
+
+/* =====================================================================
+   4. i18n RENDER
+   ===================================================================== */
+function applyLang(){
+  document.documentElement.lang=LANG;
+  $$("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n");if(I18N[LANG][k]!=null)el.textContent=I18N[LANG][k];});
+  $$("[data-i18n-ph]").forEach(el=>{const k=el.getAttribute("data-i18n-ph");if(I18N[LANG][k]!=null)el.placeholder=I18N[LANG][k];});
+  const flags={en:"🇺🇸",es:"🇲🇽",fr:"🇫🇷"};
+  $("#langFlag").textContent=flags[LANG]; $("#langCode").textContent=LANG.toUpperCase();
+  renderServices();renderFaq();renderCurrentDynamic();updateAuthNav();
+}
+function setLang(l){LANG=l;localStorage.setItem(LS.lang,l);applyLang();toast("toast.lang");}
+
+/* =====================================================================
+   5. ROUTER
+   ===================================================================== */
+const MARKETING=["home","about","services","contact","faq","privacy","terms"];
+function nav(page){
+  if(page==="appointments"&&!getUser()){renderAppts();}
+  $$(".page").forEach(p=>p.classList.toggle("active",p.dataset.page===page));
+  $$(".nav-links a").forEach(a=>a.classList.toggle("active",a.dataset.nav===page));
+  document.body.classList.toggle("app-mode",!MARKETING.includes(page));
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(page==="book")renderBook();
+  if(page==="appointments")renderAppts();
+  location.hash="/"+page;
+}
+function renderCurrentDynamic(){
+  const active=$(".page.active");if(!active)return;
+  const p=active.dataset.page;
+  if(p==="book")renderBook();if(p==="appointments")renderAppts();
+}
+document.addEventListener("click",e=>{
+  const n=e.target.closest("[data-nav]");
+  if(n){e.preventDefault();nav(n.dataset.nav);}
+});
+
+/* =====================================================================
+   6. SERVICES + FAQ RENDER
+   ===================================================================== */
+function renderServices(){
+  const g=$("#svcGrid");if(!g)return;g.innerHTML="";
+  SERVICES[LANG].forEach(s=>{
+    const d=document.createElement("div");d.className="card";
+    d.innerHTML=`<div class="ic">✦</div><h3>${s.name}</h3><p>${s.desc}</p>
+      <div style="margin-top:14px;display:flex;justify-content:space-between;align-items:center">
+      <span class="opt .meta" style="color:var(--muted);font-size:.85rem">⏱ ${s.dur} · ${s.price}</span>
+      <button class="btn btn-ghost btn-sm" data-svc="${s.id}">${t("nav.book")}</button></div>`;
+    d.querySelector("[data-svc]").addEventListener("click",()=>{bookState.service=s.id;bookState.step=1;nav("book");});
+    g.appendChild(d);
+  });
+}
+function renderFaq(){
+  const l=$("#faqList");if(!l)return;l.innerHTML="";
+  FAQ[LANG].forEach(([q,a])=>{
+    const d=document.createElement("details");
+    d.innerHTML=`<summary>${q}<span class="plus">+</span></summary><div class="a">${a}</div>`;
+    l.appendChild(d);
+  });
+}
+
+/* =====================================================================
+   7. AUTH
+   ===================================================================== */
+function updateAuthNav(){
+  const el=$("#authNav");if(!el)return;const u=getUser();
+  if(u){el.textContent=(u.name||"").split(" ")[0]||t("nav.login");el.dataset.nav="appointments";}
+  else{el.textContent=t("nav.login");el.dataset.nav="login";}
+}
+$("#loginForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const email=$("#loginEmail").value.trim().toLowerCase();
+  const accs=JSON.parse(localStorage.getItem("azaz_accounts")||"{}");
+  if(accs[email]&&accs[email].pw===$("#loginPw").value){
+    setUser({name:accs[email].name,email});toast("toast.login","ok");nav("appointments");
+  }else{toast("toast.loginfail","err");}
+});
+$("#regForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const email=$("#regEmail").value.trim().toLowerCase();
+  const accs=JSON.parse(localStorage.getItem("azaz_accounts")||"{}");
+  accs[email]={name:$("#regName").value.trim(),pw:$("#regPw").value};
+  localStorage.setItem("azaz_accounts",JSON.stringify(accs));
+  setUser({name:accs[email].name,email});toast("toast.reg","ok");nav("appointments");
+});
+$("#contactForm").addEventListener("submit",e=>{e.preventDefault();e.target.reset();toast("toast.sent","ok");});
+
+/* =====================================================================
+   8. BOOKING FLOW
+   ===================================================================== */
+let bookState={step:1,service:null,staff:"any",date:null,time:null,editingId:null};
+function fmtDate(d){return d.toLocaleDateString(LANG,{weekday:"short",month:"short",day:"numeric"});}
+function nextDays(n){const arr=[];const now=new Date();for(let i=1;i<=n;i++){const d=new Date(now);d.setDate(now.getDate()+i);if(d.getDay()!==0)arr.push(d);}return arr;}
+const TIMES=["9:00","10:00","11:00","1:00","2:00","3:00","4:00","5:00"];
+function setStep(s){bookState.step=s;$$("#stepper .st").forEach((el,i)=>{el.classList.toggle("on",i===s-1);el.classList.toggle("done",i<s-1);});renderBook();}
+function renderBook(){
+  const b=$("#bookBody");if(!b)return;const st=bookState;
+  $$("#stepper .st").forEach((el,i)=>{el.classList.toggle("on",i===st.step-1);el.classList.toggle("done",i<st.step-1);});
+  if(st.step===1){
+    b.innerHTML=`<div class="opt-grid">${SERVICES[LANG].map(s=>`
+      <div class="opt ${st.service===s.id?'sel':''}" data-s="${s.id}"><h4>${s.name}</h4><div class="meta">⏱ ${s.dur}</div><div class="price">${s.price}</div></div>`).join("")}</div>
+      <div style="margin-top:22px;text-align:right"><button class="btn btn-primary" id="bNext" ${st.service?'':'disabled style=opacity:.5'}>${t("book.next")}</button></div>`;
+    b.querySelectorAll(".opt").forEach(o=>o.addEventListener("click",()=>{st.service=o.dataset.s;renderBook();}));
+    if(st.service)$("#bNext").addEventListener("click",()=>setStep(2));
+  }
+  else if(st.step===2){
+    b.innerHTML=`<div class="opt-grid">${STAFF[LANG].map(s=>`
+      <div class="opt ${st.staff===s.id?'sel':''}" data-st="${s.id}"><h4>${s.name}</h4></div>`).join("")}</div>
+      <div style="margin-top:22px;display:flex;justify-content:space-between"><button class="btn btn-ghost" id="bBack">${t("book.back")}</button><button class="btn btn-primary" id="bNext">${t("book.next")}</button></div>`;
+    b.querySelectorAll(".opt").forEach(o=>o.addEventListener("click",()=>{st.staff=o.dataset.st;renderBook();}));
+    $("#bBack").addEventListener("click",()=>setStep(1));$("#bNext").addEventListener("click",()=>setStep(3));
+  }
+  else if(st.step===3){
+    const days=nextDays(8);
+    b.innerHTML=`<label class="field" style="display:block"><span style="font-size:.85rem;font-weight:600;color:var(--app-muted)">${t("book.chooseDate")}</span></label>
+      <div class="slot-grid" style="margin-bottom:20px">${days.map((d,i)=>`<div class="slot ${st.date===d.toISOString()?'sel':''}" data-d="${d.toISOString()}">${fmtDate(d)}</div>`).join("")}</div>
+      <div class="slot-grid" id="timeGrid" style="${st.date?'':'opacity:.4;pointer-events:none'}">${TIMES.map(tm=>`<div class="slot ${st.time===tm?'sel':''}" data-t="${tm}">${tm}</div>`).join("")}</div>
+      <div style="margin-top:22px;display:flex;justify-content:space-between"><button class="btn btn-ghost" id="bBack">${t("book.back")}</button><button class="btn btn-primary" id="bNext" ${st.date&&st.time?'':'disabled style=opacity:.5'}>${t("book.next")}</button></div>`;
+    b.querySelectorAll("[data-d]").forEach(o=>o.addEventListener("click",()=>{st.date=o.dataset.d;st.time=null;renderBook();}));
+    b.querySelectorAll("[data-t]").forEach(o=>o.addEventListener("click",()=>{st.time=o.dataset.t;renderBook();}));
+    $("#bBack").addEventListener("click",()=>setStep(2));
+    if(st.date&&st.time)$("#bNext").addEventListener("click",()=>setStep(4));
+  }
+  else if(st.step===4){
+    const svc=SERVICES[LANG].find(s=>s.id===st.service);const stf=STAFF[LANG].find(s=>s.id===st.staff);
+    const d=new Date(st.date);
+    b.innerHTML=`<div class="panel" style="background:rgba(165,129,255,.08)">
+      <h3 style="margin-bottom:14px">${t("book.summary")}</h3>
+      <div style="display:grid;gap:8px;font-size:.95rem">
+        <div>✦ <b>${svc.name}</b> · ${svc.dur}</div>
+        <div>👤 ${stf.name}</div>
+        <div>📅 ${fmtDate(d)} · ${st.time}</div>
+        <div>💵 ${svc.price}</div>
+      </div></div>
+      <div style="margin-top:22px;display:flex;justify-content:space-between"><button class="btn btn-ghost" id="bBack">${t("book.back")}</button><button class="btn btn-primary" id="bConfirm">${t("book.confirm")}</button></div>`;
+    $("#bBack").addEventListener("click",()=>setStep(3));
+    $("#bConfirm").addEventListener("click",confirmBooking);
+  }
+}
+function confirmBooking(){
+  const st=bookState;
+  if(!getUser()){toast("appt.loginReq","err");nav("login");return;}
+  const svc=SERVICES.en.find(s=>s.id===st.service);
+  let appts=getAppts();
+  if(st.editingId){appts=appts.filter(a=>a.id!==st.editingId);}
+  appts.push({id:st.editingId||("a"+Date.now()),user:getUser().email,serviceId:st.service,serviceName:svc.name,staff:st.staff,date:st.date,time:st.time});
+  setAppts(appts);
+  toast(st.editingId?"toast.resched":"toast.booked","ok");
+  bookState={step:1,service:null,staff:"any",date:null,time:null,editingId:null};
+  nav("appointments");
+}
+
+/* =====================================================================
+   9. MY APPOINTMENTS
+   ===================================================================== */
+function renderAppts(){
+  const p=$("#apptPanel");if(!p)return;const u=getUser();
+  if(!u){p.innerHTML=`<h2 class="page-title">${t("nav.appts")}</h2><p class="page-sub">${t("appt.loginReq")}</p><button class="btn btn-primary" data-nav="login">${t("appt.gotoLogin")}</button>`;return;}
+  const mine=getAppts().filter(a=>a.user===u.email).sort((a,b)=>new Date(a.date)-new Date(b.date));
+  let html=`<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:8px">
+    <div><h2 class="page-title">${t("appt.h")}</h2><p class="page-sub" style="margin-bottom:0">${t("appt.welcome")} <b>${u.email}</b></p></div>
+    <button class="btn btn-ghost btn-sm" id="logoutBtn">${t("appt.logout")}</button></div>`;
+  if(!mine.length){
+    html+=`<div style="text-align:center;padding:30px 0"><p class="page-sub">${t("appt.none")}</p><button class="btn btn-primary" data-nav="book">${t("appt.book")}</button></div>`;
+  }else{
+    const svcName=id=>(SERVICES[LANG].find(s=>s.id===id)||{}).name||id;
+    const stfName=id=>(STAFF[LANG].find(s=>s.id===id)||{name:id}).name;
+    html+="<div style='margin-top:18px'>"+mine.map(a=>{
+      const d=new Date(a.date);
+      return `<div class="appt">
+        <div class="date-badge"><div class="d">${d.getDate()}</div><div class="m">${d.toLocaleDateString(LANG,{month:"short"})}</div></div>
+        <div class="info"><h4>${svcName(a.serviceId)} <span class="tag">✓</span></h4><div class="meta">${a.time} · ${stfName(a.staff)}</div></div>
+        <div class="acts"><button class="btn btn-ghost btn-sm" data-res="${a.id}">${t("appt.resched")}</button><button class="btn btn-ghost btn-sm" data-can="${a.id}">${t("appt.cancel")}</button></div>
+      </div>`;
+    }).join("")+"</div>"+`<div style="margin-top:14px"><button class="btn btn-primary" data-nav="book">${t("appt.book")}</button></div>`;
+  }
+  p.innerHTML=html;
+  const lb=$("#logoutBtn");if(lb)lb.addEventListener("click",()=>{setUser(null);toast("toast.logout");nav("home");});
+  p.querySelectorAll("[data-can]").forEach(b=>b.addEventListener("click",()=>{
+    setAppts(getAppts().filter(a=>a.id!==b.dataset.can));toast("toast.cancelled");renderAppts();}));
+  p.querySelectorAll("[data-res]").forEach(b=>b.addEventListener("click",()=>{
+    const a=getAppts().find(x=>x.id===b.dataset.res);
+    bookState={step:3,service:a.serviceId,staff:a.staff,date:null,time:null,editingId:a.id};nav("book");}));
+}
+
+/* =====================================================================
+   10. AI CHAT ENGINE
+   ===================================================================== */
+const chatBody=$("#chatBody");
+function addMsg(text,who){const m=document.createElement("div");m.className="msg "+who;m.innerHTML=text;chatBody.appendChild(m);chatBody.scrollTop=chatBody.scrollHeight;return m;}
+function showTyping(){const m=document.createElement("div");m.className="msg bot";m.id="typing";m.innerHTML=`<div class="typing"><span></span><span></span><span></span></div>`;chatBody.appendChild(m);chatBody.scrollTop=chatBody.scrollHeight;}
+function hideTyping(){const el=$("#typing");if(el)el.remove();}
+function has(text,words){text=text.toLowerCase();return words.some(w=>text.includes(w));}
+function aiRespond(input){
+  const kb=KB[LANG];const low=input.toLowerCase();
+  // booking / cancel / reschedule intents
+  if(has(low,BOOK_WORDS[LANG])||has(low,BOOK_WORDS.en)){
+    setTimeout(()=>{closeChat();bookState.step=1;nav("book");},700);
+    return LANG==="es"?"¡Perfecto! Abriendo la reserva… 📅":LANG==="fr"?"Parfait ! J'ouvre la réservation… 📅":"Great! Opening the booking flow for you… 📅";
+  }
+  if(has(low,CANCEL_WORDS[LANG])||has(low,CANCEL_WORDS.en)){
+    setTimeout(()=>{closeChat();nav("appointments");},700);
+    return LANG==="es"?"Claro, te llevo a Mis Citas para cancelar. 🗑":LANG==="fr"?"Bien sûr, je vous emmène à Mes RDV pour annuler. 🗑":"Sure — taking you to My Appointments to cancel. 🗑";
+  }
+  if(has(low,RESCHED_WORDS[LANG])){
+    setTimeout(()=>{closeChat();nav("appointments");},700);
+    return LANG==="es"?"Vamos a Mis Citas para reprogramar. 🔄":LANG==="fr"?"Allons à Mes RDV pour reporter. 🔄":"Let's head to My Appointments to reschedule. 🔄";
+  }
+  // knowledge intents
+  for(const it of INTENTS){if(has(low,it.w[LANG])||has(low,it.w.en))return kb[it.k];}
+  return kb.fallback;
+}
+function sendChat(text){
+  text=(text||"").trim();if(!text)return;
+  addMsg(text,"me");$("#chatInput").value="";
+  showTyping();
+  setTimeout(()=>{hideTyping();const r=aiRespond(text);addMsg(r,"bot");if($("#voiceOv").classList.contains("open"))speak(r);},650+Math.random()*500);
+}
+function chatChips(){
+  const chips={en:["View services","Pricing","Book now","Talk to a human"],es:["Ver servicios","Precios","Reservar","Hablar con humano"],fr:["Voir services","Tarifs","Réserver","Parler à un humain"]};
+  $("#chatChips").innerHTML=chips[LANG].map(c=>`<button class="chip">${c}</button>`).join("");
+  $("#chatChips").querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>sendChat(b.textContent)));
+}
+function openChat(){$("#chat").classList.add("open");$("#fabWrap").style.display="none";if(!chatBody.dataset.init){addMsg(t("chat.greet"),"bot");chatBody.dataset.init="1";}chatChips();$("#chatInput").focus();}
+function closeChat(){$("#chat").classList.remove("open");$("#fabWrap").style.display="flex";}
+$("#fabChat").addEventListener("click",openChat);
+$("#chatClose").addEventListener("click",closeChat);
+$("#chatSend").addEventListener("click",()=>sendChat($("#chatInput").value));
+$("#chatInput").addEventListener("keydown",e=>{if(e.key==="Enter")sendChat($("#chatInput").value);});
+
+/* =====================================================================
+   11. VOICE ASSISTANT (Web Speech API)
+   ===================================================================== */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let recog=null,listening=false;
+const voiceLangMap={en:"en-US",es:"es-MX",fr:"fr-FR"};
+function speak(text){
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(text.replace(/<[^>]+>/g,""));
+  u.lang=voiceLangMap[LANG];
+  const v=speechSynthesis.getVoices().find(v=>v.lang.startsWith(LANG));if(v)u.voice=v;
+  u.rate=1.02;speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+function initRecog(){
+  if(!SR)return null;
+  const r=new SR();r.lang=voiceLangMap[LANG];r.interimResults=true;r.continuous=false;
+  r.onresult=e=>{
+    let txt="";for(let i=0;i<e.results.length;i++)txt+=e.results[i][0].transcript;
+    $("#voiceTranscript").textContent=txt;
+    if(e.results[e.results.length-1].isFinal){
+      const reply=aiRespondVoice(txt);
+      setTimeout(()=>{$("#voiceTranscript").textContent="🤖 "+reply;speak(reply);},400);
+    }
+  };
+  r.onend=()=>{listening=false;$("#voiceOrb").classList.remove("listening");$("#voiceToggle").textContent=t("voice.listen");};
+  r.onerror=()=>{listening=false;$("#voiceOrb").classList.remove("listening");};
+  return r;
+}
+function aiRespondVoice(txt){return aiRespond(txt);} // shares chat engine
+function toggleListen(){
+  if(!SR){$("#voiceTranscript").textContent="⚠ "+({en:"Voice recognition isn't supported in this browser. Try Chrome or Edge.",es:"El reconocimiento de voz no funciona en este navegador. Prueba Chrome o Edge.",fr:"La reconnaissance vocale n'est pas prise en charge ici. Essayez Chrome ou Edge."}[LANG]);return;}
+  if(listening){recog&&recog.stop();return;}
+  recog=initRecog();if(!recog)return;
+  listening=true;$("#voiceOrb").classList.add("listening");$("#voiceToggle").textContent=t("voice.stop");
+  try{recog.start();}catch(e){}
+}
+function openVoice(){$("#voiceOv").classList.add("open");$("#voiceTranscript").textContent=t("voice.tap");if(window.speechSynthesis)speechSynthesis.getVoices();}
+function closeVoice(){$("#voiceOv").classList.remove("open");if(recog&&listening)recog.stop();speechSynthesis&&speechSynthesis.cancel();}
+$("#fabVoice").addEventListener("click",openVoice);
+$("#heroVoice").addEventListener("click",openVoice);
+$("#voiceToggle").addEventListener("click",toggleListen);
+$("#voiceOrb").addEventListener("click",toggleListen);
+$("#voiceEnd").addEventListener("click",closeVoice);
+$("#chatMic").addEventListener("click",()=>{ // in-chat mic → voice-to-text into chat
+  if(!SR){toast("voice.hint","err");return;}
+  const r=new SR();r.lang=voiceLangMap[LANG];r.interimResults=false;
+  const btn=$("#chatMic");btn.classList.add("live");
+  r.onresult=e=>{$("#chatInput").value=e.results[0][0].transcript;};
+  r.onend=()=>{btn.classList.remove("live");if($("#chatInput").value)sendChat($("#chatInput").value);};
+  r.onerror=()=>btn.classList.remove("live");
+  try{r.start();}catch(e){btn.classList.remove("live");}
+});
+
+/* =====================================================================
+   12. UI WIRING
+   ===================================================================== */
+$("#langBtn").addEventListener("click",()=>$("#langMenu").classList.toggle("open"));
+$("#langMenu").querySelectorAll("[data-lang]").forEach(b=>b.addEventListener("click",()=>{setLang(b.dataset.lang);$("#langMenu").classList.remove("open");}));
+document.addEventListener("click",e=>{if(!e.target.closest(".lang"))$("#langMenu").classList.remove("open");});
+$("#burger").addEventListener("click",()=>$("#navlinks").classList.toggle("open"));
+$$("#navlinks a").forEach(a=>a.addEventListener("click",()=>$("#navlinks").classList.remove("open")));
+
+/* =====================================================================
+   13. INIT
+   ===================================================================== */
+function boot(){
+  applyLang();updateAuthNav();
+  const hash=(location.hash||"#/home").replace("#/","");
+  nav(document.querySelector(`[data-page="${hash}"]`)?hash:"home");
+  if(window.speechSynthesis)speechSynthesis.onvoiceschanged=()=>{};
+}
+boot();
+</script>
+</body>
+</html>

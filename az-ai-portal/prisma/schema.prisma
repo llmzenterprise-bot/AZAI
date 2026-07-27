@@ -1,0 +1,103 @@
+// Reference schema for the production build. The demo runs without a database
+// (localStorage), so Prisma is NOT a runtime dependency yet. To activate:
+//   npm i -D prisma && npm i @prisma/client
+//   npx prisma generate && npx prisma migrate dev
+// See ../../ARCHITECTURE.md for the full data model rationale.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role { CUSTOMER STAFF ADMIN }
+enum ApptStatus { CONFIRMED RESCHEDULED CANCELLED COMPLETED NO_SHOW }
+enum Channel { CHAT VOICE }
+
+model User {
+  id           String        @id @default(cuid())
+  name         String
+  email        String        @unique
+  phone        String?
+  passwordHash String?
+  locale       String        @default("en")
+  role         Role          @default(CUSTOMER)
+  createdAt    DateTime      @default(now())
+  appointments Appointment[]
+}
+
+model Service {
+  id           String        @id @default(cuid())
+  slug         String        @unique
+  durationMin  Int
+  priceCents   Int           @default(0)
+  active       Boolean       @default(true)
+  translations ServiceI18n[]
+  appointments Appointment[]
+}
+
+model ServiceI18n {
+  id          String  @id @default(cuid())
+  serviceId   String
+  locale      String
+  name        String
+  description String
+  service     Service @relation(fields: [serviceId], references: [id])
+  @@unique([serviceId, locale])
+}
+
+model Staff {
+  id           String         @id @default(cuid())
+  name         String
+  title        String
+  active       Boolean        @default(true)
+  availability Availability[]
+  appointments Appointment[]
+}
+
+model Availability {
+  id       String @id @default(cuid())
+  staffId  String
+  weekday  Int
+  startMin Int
+  endMin   Int
+  staff    Staff  @relation(fields: [staffId], references: [id])
+}
+
+model Appointment {
+  id        String     @id @default(cuid())
+  userId    String
+  serviceId String
+  staffId   String?
+  startsAt  DateTime
+  endsAt    DateTime
+  status    ApptStatus @default(CONFIRMED)
+  locale    String
+  notes     String?
+  createdAt DateTime   @default(now())
+  user      User       @relation(fields: [userId], references: [id])
+  service   Service    @relation(fields: [serviceId], references: [id])
+  staff     Staff?     @relation(fields: [staffId], references: [id])
+  @@index([userId])
+  @@index([startsAt])
+}
+
+model KnowledgeChunk {
+  id      String @id @default(cuid())
+  locale  String
+  topic   String
+  content String
+  // embedding vector(1536)  // enable with pgvector for RAG
+}
+
+model ConversationLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  channel    Channel
+  transcript Json
+  escalated  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}

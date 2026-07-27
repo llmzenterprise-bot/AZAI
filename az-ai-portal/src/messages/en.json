@@ -1,0 +1,79 @@
+{
+  "nav": {
+    "home": "Home", "about": "About", "services": "Services", "book": "Book",
+    "appts": "My Appointments", "contact": "Contact", "faq": "FAQ", "login": "Log in"
+  },
+  "home": {
+    "eyebrow": "AI-Powered Booking Portal",
+    "h1a": "Book, chat, or", "h1b": "just talk to us.",
+    "lead": "Meet your 24/7 AI assistant. Ask a question, get matched to the right service, and book an appointment — by text or voice, in your language. No hold music, ever.",
+    "cta1": "Book an Appointment →", "cta2": "🎙 Talk to the AI",
+    "t1": "AI answering", "t2": "languages", "t3": "to book",
+    "fEye": "What you can do", "fH": "Everything through one assistant.",
+    "f1t": "Chat with AI", "f1p": "Ask about services, hours, and pricing. Get instant, accurate answers from our knowledge base.",
+    "f2t": "Voice assistant", "f2p": "Prefer talking? Speak naturally and the AI responds with a human-like voice, in real time.",
+    "f3t": "Self-serve booking", "f3p": "Book, reschedule, or cancel anytime. Confirmations land instantly by email and SMS.",
+    "f4t": "Your language", "f4p": "Switch between English, Spanish, and French instantly — the whole site follows you.",
+    "f5t": "Secure account", "f5p": "Log in to see every upcoming appointment and manage your profile in one place.",
+    "f6t": "Human handoff", "f6p": "Need a person? The AI escalates to a human the moment it can't help.",
+    "ctaH": "Ready in about 60 seconds.", "ctaP": "Pick a service, choose a time, done. Your AI receptionist handles the rest.", "ctaB": "Start Booking"
+  },
+  "about": {
+    "eye": "About us", "h": "Human service, AI speed.",
+    "p1": "AZ AI Geeks builds conversion-focused websites and AI receptionists for local businesses. This portal is how your customers reach you — book a service, ask a question, or talk to the assistant, any hour of any day.",
+    "m1t": "Our mission", "m1p": "No customer should ever hit a voicemail and give up. We make every business instantly reachable.",
+    "m2t": "How we work", "m2p": "AI first, humans always in reach. The assistant handles the routine so our team can handle the exceptions.",
+    "m3t": "Your trust", "m3p": "The AI only answers from a verified knowledge base. It never invents hours, prices, or promises."
+  },
+  "svc": { "eye": "Services", "h": "Book the right fit.", "p": "Not sure which one? Ask the AI assistant — bottom right — and it'll match you." },
+  "book": {
+    "h": "Book an appointment", "sub": "Four quick steps. You can also just tell the AI assistant what you need.",
+    "s1": "1 · Service", "s2": "2 · Staff", "s3": "3 · Date & Time", "s4": "4 · Confirm",
+    "next": "Next →", "back": "← Back", "confirm": "Confirm booking", "chooseDate": "Choose a date",
+    "summary": "Summary", "loginReq": "Please log in to confirm your booking."
+  },
+  "contact": {
+    "h": "Contact us", "sub": "Send a message, or use the chat/voice assistant for an instant reply.",
+    "name": "Name", "email": "Email", "msg": "Message", "send": "Send message", "or": "Or reach us at"
+  },
+  "faq": { "eye": "FAQ", "h": "Questions, answered." },
+  "login": { "h": "Welcome back", "sub": "Log in to manage your appointments.", "email": "Email", "pw": "Password", "btn": "Log in", "no": "No account?", "reg": "Create one", "fail": "No account found — try registering." },
+  "reg": { "h": "Create your account", "sub": "It takes a few seconds.", "name": "Full name", "email": "Email", "pw": "Password", "btn": "Create account", "have": "Already have one?", "login": "Log in" },
+  "priv": {
+    "h": "Privacy Policy",
+    "intro": "This demo stores your account and appointments locally in your browser only. In production, data is handled as described below.",
+    "h1": "What we collect", "p1": "Name, email, phone, and appointment details you provide to book and manage services.",
+    "h2": "How we use it", "p2": "To schedule appointments, send confirmations and reminders, and improve our service. We never sell your data.",
+    "h3": "AI processing", "p3": "Conversations may be processed by AI to answer questions and book appointments. The AI answers only from a verified knowledge base.",
+    "h4": "Your rights", "p4": "You can request access to, correction of, or deletion of your data at any time by contacting hello@azaigeeks.com."
+  },
+  "terms": {
+    "h": "Terms of Service", "intro": "By using this portal you agree to the following terms.",
+    "h1": "Use of service", "p1": "This portal lets you book and manage appointments. You agree to provide accurate information.",
+    "h2": "Cancellations", "p2": "You may reschedule or cancel appointments through the portal or the AI assistant, subject to the business's cancellation window.",
+    "h3": "AI assistant", "p3": "The AI provides information and booking help. For binding quotes or complex needs, a human team member will confirm.",
+    "h4": "Liability", "p4": "This is provided as-is, without warranty, during the demonstration phase. Production terms will be provided at launch."
+  },
+  "foot": { "tag": "Websites that sell. Calls that close. Booking that runs itself.", "explore": "Explore", "account": "Account", "legal": "Legal", "rights": "All rights reserved.", "register": "Register" },
+  "chat": {
+    "title": "AZ Assistant", "online": "Online · replies instantly", "ph": "Type a message…",
+    "greet": "Hi! I'm the AZ AI assistant 👋 I can answer questions, help you pick a service, and book, reschedule, or cancel an appointment. What can I do for you?",
+    "chip1": "View services", "chip2": "Pricing", "chip3": "Book now", "chip4": "Talk to a human"
+  },
+  "voice": {
+    "tap": "Tap the orb and start speaking…", "hint": "Your browser handles speech — English, Spanish, or French.",
+    "listen": "🎙 Start listening", "stop": "■ Stop", "close": "Close",
+    "unsupported": "Voice recognition isn't supported in this browser. Try Chrome or Edge."
+  },
+  "appt": {
+    "h": "My appointments", "welcome": "Signed in as", "logout": "Log out",
+    "none": "No upcoming appointments yet.", "book": "Book one now",
+    "resched": "Reschedule", "cancel": "Cancel",
+    "loginReq": "Please log in to view your appointments.", "gotoLogin": "Go to login"
+  },
+  "toast": {
+    "login": "Logged in — welcome back!", "reg": "Account created — you're in!", "logout": "Logged out.",
+    "booked": "Appointment confirmed!", "cancelled": "Appointment cancelled.", "resched": "Appointment rescheduled.",
+    "sent": "Message sent — we'll reply shortly.", "lang": "Language switched"
+  }
+}

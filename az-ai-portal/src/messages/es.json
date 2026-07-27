@@ -1,0 +1,79 @@
+{
+  "nav": {
+    "home": "Inicio", "about": "Nosotros", "services": "Servicios", "book": "Reservar",
+    "appts": "Mis Citas", "contact": "Contacto", "faq": "Preguntas", "login": "Entrar"
+  },
+  "home": {
+    "eyebrow": "Portal de Reservas con IA",
+    "h1a": "Reserva, chatea o", "h1b": "solo háblanos.",
+    "lead": "Tu asistente de IA 24/7. Haz una pregunta, encuentra el servicio ideal y reserva una cita — por texto o voz, en tu idioma. Sin música de espera.",
+    "cta1": "Reservar una cita →", "cta2": "🎙 Habla con la IA",
+    "t1": "atención con IA", "t2": "idiomas", "t3": "para reservar",
+    "fEye": "Lo que puedes hacer", "fH": "Todo con un solo asistente.",
+    "f1t": "Chatea con IA", "f1p": "Pregunta por servicios, horarios y precios. Respuestas al instante desde nuestra base de conocimiento.",
+    "f2t": "Asistente de voz", "f2p": "¿Prefieres hablar? Habla con naturalidad y la IA responde con voz humana, en tiempo real.",
+    "f3t": "Reserva tú mismo", "f3p": "Reserva, reprograma o cancela cuando quieras. Confirmaciones al instante por correo y SMS.",
+    "f4t": "Tu idioma", "f4p": "Cambia entre inglés, español y francés al instante — todo el sitio te sigue.",
+    "f5t": "Cuenta segura", "f5p": "Inicia sesión para ver todas tus citas y gestionar tu perfil en un solo lugar.",
+    "f6t": "Pase a humano", "f6p": "¿Necesitas a una persona? La IA te transfiere a un humano cuando no puede ayudar.",
+    "ctaH": "Listo en unos 60 segundos.", "ctaP": "Elige un servicio, elige una hora, listo. Tu recepcionista de IA hace el resto.", "ctaB": "Comenzar a reservar"
+  },
+  "about": {
+    "eye": "Nosotros", "h": "Servicio humano, velocidad de IA.",
+    "p1": "AZ AI Geeks crea sitios web enfocados en conversión y recepcionistas de IA para negocios locales. Este portal es como tus clientes te contactan — reservar, preguntar o hablar con el asistente, a cualquier hora.",
+    "m1t": "Nuestra misión", "m1p": "Ningún cliente debería toparse con un buzón de voz y rendirse. Hacemos que cada negocio sea localizable al instante.",
+    "m2t": "Cómo trabajamos", "m2p": "IA primero, humanos siempre disponibles. El asistente maneja lo rutinario para que el equipo maneje las excepciones.",
+    "m3t": "Tu confianza", "m3p": "La IA solo responde desde una base verificada. Nunca inventa horarios, precios ni promesas."
+  },
+  "svc": { "eye": "Servicios", "h": "Reserva la opción ideal.", "p": "¿No sabes cuál? Pregúntale al asistente de IA — abajo a la derecha — y te ayudará." },
+  "book": {
+    "h": "Reservar una cita", "sub": "Cuatro pasos rápidos. También puedes decirle al asistente lo que necesitas.",
+    "s1": "1 · Servicio", "s2": "2 · Personal", "s3": "3 · Fecha y hora", "s4": "4 · Confirmar",
+    "next": "Siguiente →", "back": "← Atrás", "confirm": "Confirmar reserva", "chooseDate": "Elige una fecha",
+    "summary": "Resumen", "loginReq": "Inicia sesión para confirmar tu reserva."
+  },
+  "contact": {
+    "h": "Contáctanos", "sub": "Envía un mensaje o usa el asistente de chat/voz para una respuesta inmediata.",
+    "name": "Nombre", "email": "Correo", "msg": "Mensaje", "send": "Enviar mensaje", "or": "O escríbenos a"
+  },
+  "faq": { "eye": "Preguntas", "h": "Preguntas, resueltas." },
+  "login": { "h": "Bienvenido de nuevo", "sub": "Inicia sesión para gestionar tus citas.", "email": "Correo", "pw": "Contraseña", "btn": "Entrar", "no": "¿Sin cuenta?", "reg": "Crea una", "fail": "No hay cuenta — intenta registrarte." },
+  "reg": { "h": "Crea tu cuenta", "sub": "Toma unos segundos.", "name": "Nombre completo", "email": "Correo", "pw": "Contraseña", "btn": "Crear cuenta", "have": "¿Ya tienes una?", "login": "Entrar" },
+  "priv": {
+    "h": "Política de Privacidad",
+    "intro": "Esta demo guarda tu cuenta y citas solo localmente en tu navegador. En producción, los datos se manejan como se describe.",
+    "h1": "Qué recopilamos", "p1": "Nombre, correo, teléfono y detalles de la cita que proporcionas para reservar y gestionar servicios.",
+    "h2": "Cómo lo usamos", "p2": "Para agendar citas, enviar confirmaciones y recordatorios, y mejorar el servicio. Nunca vendemos tus datos.",
+    "h3": "Procesamiento con IA", "p3": "Las conversaciones pueden ser procesadas por IA para responder y reservar. La IA solo responde desde una base verificada.",
+    "h4": "Tus derechos", "p4": "Puedes solicitar acceso, corrección o eliminación de tus datos escribiendo a hello@azaigeeks.com."
+  },
+  "terms": {
+    "h": "Términos del Servicio", "intro": "Al usar este portal aceptas los siguientes términos.",
+    "h1": "Uso del servicio", "p1": "Este portal te permite reservar y gestionar citas. Aceptas dar información precisa.",
+    "h2": "Cancelaciones", "p2": "Puedes reprogramar o cancelar citas por el portal o el asistente de IA, según la ventana de cancelación del negocio.",
+    "h3": "Asistente de IA", "p3": "La IA da información y ayuda a reservar. Para cotizaciones formales, un miembro del equipo lo confirmará.",
+    "h4": "Responsabilidad", "p4": "Se ofrece tal cual, sin garantía, durante la fase de demostración. Los términos de producción se darán al lanzamiento."
+  },
+  "foot": { "tag": "Sitios que venden. Llamadas que cierran. Reservas en automático.", "explore": "Explorar", "account": "Cuenta", "legal": "Legal", "rights": "Todos los derechos reservados.", "register": "Registrarse" },
+  "chat": {
+    "title": "Asistente AZ", "online": "En línea · responde al instante", "ph": "Escribe un mensaje…",
+    "greet": "¡Hola! Soy el asistente de IA de AZ 👋 Puedo responder preguntas, ayudarte a elegir un servicio y reservar, reprogramar o cancelar una cita. ¿En qué te ayudo?",
+    "chip1": "Ver servicios", "chip2": "Precios", "chip3": "Reservar", "chip4": "Hablar con humano"
+  },
+  "voice": {
+    "tap": "Toca la esfera y empieza a hablar…", "hint": "Tu navegador procesa la voz — inglés, español o francés.",
+    "listen": "🎙 Empezar a escuchar", "stop": "■ Detener", "close": "Cerrar",
+    "unsupported": "El reconocimiento de voz no funciona en este navegador. Prueba Chrome o Edge."
+  },
+  "appt": {
+    "h": "Mis citas", "welcome": "Sesión de", "logout": "Salir",
+    "none": "Aún no tienes citas próximas.", "book": "Reserva una ahora",
+    "resched": "Reprogramar", "cancel": "Cancelar",
+    "loginReq": "Inicia sesión para ver tus citas.", "gotoLogin": "Ir a iniciar sesión"
+  },
+  "toast": {
+    "login": "Sesión iniciada — ¡bienvenido!", "reg": "Cuenta creada — ¡ya estás dentro!", "logout": "Sesión cerrada.",
+    "booked": "¡Cita confirmada!", "cancelled": "Cita cancelada.", "resched": "Cita reprogramada.",
+    "sent": "Mensaje enviado — responderemos pronto.", "lang": "Idioma cambiado"
+  }
+}

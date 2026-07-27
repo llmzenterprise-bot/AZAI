@@ -1,0 +1,36 @@
+# Dependencies
+node_modules
+
+# Build output
+.next
+out
+build
+
+# Vercel
+.vercel
+
+# Environment variables
+.env
+.env*.local
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode
+*.swp
+
+# Next.js generated
+next-env.d.ts
+
+# Unrelated sibling projects in this working directory — not part of this repo
+politician_copy_trader/
+
+# Claude Code local tool config — not part of the site codebase
+.claude/
