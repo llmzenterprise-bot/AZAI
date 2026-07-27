@@ -1,3 +1,4 @@
+// pipeline-test-2026-07-27: verifying GitHub -> Vercel auto-deploy
 import type { Metadata, Viewport } from 'next';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
