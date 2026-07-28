@@ -39,26 +39,35 @@ async function bookAppointment(args: {
   ) || SERVICES[loc][0];
   const staff = STAFF[loc][0]; // "no preference" — phone bookings don't ask staff choice
 
-  let start: Date;
-  try {
-    start = new Date(`${args.preferred_date} ${args.preferred_time || '10:00'}`);
-    if (isNaN(start.getTime())) throw new Error('unparseable');
-  } catch {
+  // Expect the assistant to supply preferred_date as "YYYY-MM-DD" and
+  // preferred_time as 24-hour "HH:MM" — both understood as business-local
+  // (Phoenix) time, since that's what a caller means by "book me for 2pm".
+  const dateMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec((args.preferred_date || '').trim());
+  const timeMatch = /^(\d{1,2}):(\d{2})$/.exec((args.preferred_time || '10:00').trim());
+  if (!dateMatch || !timeMatch) {
     return "I couldn't quite understand that date — could you give me a specific day and time?";
   }
+  const dateStr = args.preferred_date!.trim();
+  const hour = parseInt(timeMatch[1], 10);
+  const minute = parseInt(timeMatch[2], 10);
 
   const durationMinutes = parseInt(service.dur) || 30;
   const calendarResult = await createCalendarEvent({
     summary: `${service.name} — ${args.caller_name || args.caller_email} (phone booking)`,
     description: `Service: ${service.name}\nBooked via phone AI receptionist`,
     attendeeEmail: args.caller_email,
-    startISO: start.toISOString(),
+    dateStr, hour, minute,
     durationMinutes,
     locale: loc,
   }).catch((e) => ({ ok: false, error: String(e) }));
 
-  const dateLabel = start.toLocaleDateString(loc, { weekday: 'long', month: 'long', day: 'numeric' });
-  const timeLabel = start.toLocaleTimeString(loc, { hour: 'numeric', minute: '2-digit' });
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dateLabel = new Date(Date.UTC(y, m - 1, d)).toLocaleDateString(loc, {
+    weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC',
+  });
+  const timeLabel = new Date(Date.UTC(2000, 0, 1, hour, minute)).toLocaleTimeString(loc, {
+    hour: 'numeric', minute: '2-digit', timeZone: 'UTC',
+  });
   const { subject, html } = bookingConfirmationEmail({
     name: args.caller_name || args.caller_email.split('@')[0],
     serviceName: service.name, staffName: staff.name, dateLabel, time: timeLabel, locale: loc,

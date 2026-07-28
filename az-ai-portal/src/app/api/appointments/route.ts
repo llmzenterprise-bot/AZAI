@@ -25,21 +25,27 @@ export async function POST(req: NextRequest) {
 
   const durationMinutes = parseInt(service.dur) || 30;
   const [hourStr, minStr] = time.replace(/[^\d:]/g, '').split(':');
-  const start = new Date(dateISO);
   let hour = parseInt(hourStr, 10);
   if (hour < 9) hour += 12; // "1:00"-"5:00" are PM in this booking flow
-  start.setHours(hour, parseInt(minStr || '0', 10), 0, 0);
+  const minute = parseInt(minStr || '0', 10);
+  const dateStr = dateISO.slice(0, 10); // "YYYY-MM-DD" — the calendar day the visitor picked
 
   const calendarResult = await createCalendarEvent({
     summary: `${service.name} — ${userName || userEmail}`,
     description: `Service: ${service.name}\nStaff: ${staff.name}\nBooked via azaigeeks.com portal`,
     attendeeEmail: userEmail,
-    startISO: start.toISOString(),
+    dateStr, hour, minute,
     durationMinutes,
     locale: loc,
   }).catch((e) => ({ ok: false, error: String(e) }));
 
-  const dateLabel = start.toLocaleDateString(loc, { weekday: 'long', month: 'long', day: 'numeric' });
+  // Format for the confirmation email using the date components directly
+  // (via Date.UTC + timeZone:'UTC') so the displayed weekday/month/day can't
+  // drift from what's actually on the calendar, regardless of server timezone.
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dateLabel = new Date(Date.UTC(y, m - 1, d)).toLocaleDateString(loc, {
+    weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC',
+  });
   const { subject, html } = bookingConfirmationEmail({
     name: userName || userEmail.split('@')[0],
     serviceName: service.name,
