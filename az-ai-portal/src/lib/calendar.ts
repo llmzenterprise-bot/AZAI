@@ -85,17 +85,20 @@ export async function createCalendarEvent(input: CalendarEventInput): Promise<{ 
   const start = new Date(input.startISO);
   const end = new Date(start.getTime() + input.durationMinutes * 60000);
 
+  // Note: plain service accounts (no Google Workspace domain-wide delegation)
+  // are not allowed to invite attendees — the customer's email goes in the
+  // description instead. The confirmation email (Resend) is what actually
+  // reaches the customer.
   const res = await fetch(
-    `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?sendUpdates=all`,
+    `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events`,
     {
       method: 'POST',
       headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
       body: JSON.stringify({
         summary: input.summary,
-        description: input.description,
+        description: `${input.description}\nCustomer email: ${input.attendeeEmail}`,
         start: { dateTime: start.toISOString() },
         end: { dateTime: end.toISOString() },
-        attendees: [{ email: input.attendeeEmail }],
       }),
     }
   );
