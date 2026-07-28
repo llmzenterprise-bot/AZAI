@@ -24,10 +24,10 @@ function base64url(input: Buffer | string) {
     .replace(/=+$/, '');
 }
 
-async function getAccessToken(): Promise<string | null> {
-  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-  const key = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
-  if (!email || !key) return null;
+async function getAccessToken(): Promise<{ token: string | null; error?: string }> {
+  const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL?.trim().replace(/^["']|["']$/g, '');
+  const key = process.env.GOOGLE_SERVICE_ACCOUNT_KEY?.trim().replace(/^["']|["']$/g, '');
+  if (!email || !key) return { token: null, error: 'env vars missing' };
 
   const now = Math.floor(Date.now() / 1000);
   const header = { alg: 'RS256', typ: 'JWT' };
@@ -39,11 +39,16 @@ async function getAccessToken(): Promise<string | null> {
     exp: now + 3600,
   };
   const unsigned = `${base64url(JSON.stringify(header))}.${base64url(JSON.stringify(claims))}`;
-  const signer = crypto.createSign('RSA-SHA256');
-  signer.update(unsigned);
-  signer.end();
-  const signature = signer.sign(key.replace(/\\n/g, '\n'));
-  const jwt = `${unsigned}.${base64url(signature)}`;
+  let jwt: string;
+  try {
+    const signer = crypto.createSign('RSA-SHA256');
+    signer.update(unsigned);
+    signer.end();
+    const signature = signer.sign(key.replace(/\\n/g, '\n'));
+    jwt = `${unsigned}.${base64url(signature)}`;
+  } catch (e) {
+    return { token: null, error: `JWT signing failed (key format issue): ${String(e)}` };
+  }
 
   const res = await fetch(TOKEN_URL, {
     method: 'POST',
@@ -53,9 +58,12 @@ async function getAccessToken(): Promise<string | null> {
       assertion: jwt,
     }),
   });
-  if (!res.ok) return null;
+  if (!res.ok) {
+    const text = await res.text().catch(() => '');
+    return { token: null, error: `Google token exchange failed: ${res.status} ${text}` };
+  }
   const data = await res.json();
-  return data.access_token as string;
+  return { token: data.access_token as string };
 }
 
 export interface CalendarEventInput {
@@ -71,8 +79,8 @@ export async function createCalendarEvent(input: CalendarEventInput): Promise<{ 
   const calendarId = process.env.GOOGLE_CALENDAR_ID;
   if (!calendarId) return { ok: false, error: 'GOOGLE_CALENDAR_ID not configured' };
 
-  const token = await getAccessToken();
-  if (!token) return { ok: false, error: 'Google service account not configured' };
+  const { token, error: tokenError } = await getAccessToken();
+  if (!token) return { ok: false, error: tokenError || 'Google service account not configured' };
 
   const start = new Date(input.startISO);
   const end = new Date(start.getTime() + input.durationMinutes * 60000);
@@ -103,8 +111,8 @@ export async function createCalendarEvent(input: CalendarEventInput): Promise<{ 
 export async function deleteCalendarEvent(eventId: string): Promise<{ ok: boolean; error?: string }> {
   const calendarId = process.env.GOOGLE_CALENDAR_ID;
   if (!calendarId) return { ok: false, error: 'GOOGLE_CALENDAR_ID not configured' };
-  const token = await getAccessToken();
-  if (!token) return { ok: false, error: 'Google service account not configured' };
+  const { token, error: tokenError } = await getAccessToken();
+  if (!token) return { ok: false, error: tokenError || 'Google service account not configured' };
 
   const res = await fetch(
     `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events/${eventId}?sendUpdates=all`,
