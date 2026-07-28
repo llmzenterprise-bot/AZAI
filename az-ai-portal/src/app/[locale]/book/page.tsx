@@ -46,20 +46,32 @@ export default function Book() {
   const fmt = (d: Date) => d.toLocaleDateString(locale, { weekday: 'short', month: 'short', day: 'numeric' });
   const steps = [t('book.s1'), t('book.s2'), t('book.s3'), t('book.s4')];
 
-  function confirm() {
-    if (!getUser()) { showToast(t('book.loginReq'), 'err'); router.push('/login?next=book'); return; }
+  async function confirm() {
+    const user = getUser();
+    if (!user) { showToast(t('book.loginReq'), 'err'); router.push('/login?next=book'); return; }
     const svc = SERVICES.en.find((s) => s.id === service)!;
     let list = getAppts();
     if (editingId) list = list.filter((a) => a.id !== editingId);
     const appt: Appointment = {
       id: editingId || 'a' + Date.now(),
-      user: getUser()!.email, serviceId: service!, serviceName: svc.name,
+      user: user.email, serviceId: service!, serviceName: svc.name,
       staff, date: date!, time: time!,
     };
     list.push(appt);
     setAppts(list);
     showToast(editingId ? t('toast.resched') : t('toast.booked'), 'ok');
     router.push('/appointments');
+
+    // Best-effort: sync to calendar + send confirmation email. Doesn't block
+    // the booking itself — if these aren't configured yet, this just no-ops.
+    fetch('/api/appointments', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        userEmail: user.email, userName: user.name, serviceId: service, staffId: staff,
+        dateISO: date, time, locale,
+      }),
+    }).catch(() => {});
   }
 
   return (
