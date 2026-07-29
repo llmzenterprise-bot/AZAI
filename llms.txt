@@ -1,0 +1,51 @@
+# AZ AI Geeks
+
+> AZ AI Geeks is an AI-powered web agency. We build conversion-engineered websites and install AI Receptionists that answer a business's phone line 24/7 — so leads, appointments, and customer questions never get missed. Slogan: "Websites that sell. Calls that close."
+
+AZ AI Geeks serves local, appointment- or call-driven service businesses (examples: auto shops, hair salons, roofing contractors, and similar trades/local-service businesses). Contact: hello@azaigeeks.com. Website: https://azaigeeks.com/
+
+## The problem we solve
+
+- 62% of calls to small businesses go to voicemail, and most of those callers simply call the next business on the list instead of calling back.
+- Most small-business websites are "digital business cards" — visitors look around and leave, with no path that pushes them to actually book or buy.
+- Leads who don't convert immediately are usually forgotten, with no follow-up system in place.
+
+## Core products
+
+- **AI Receptionist** — an intelligent voice agent wired directly into a business's real phone line. It answers every call 24/7 (including nights, weekends, and while staff are busy), qualifies leads, answers common questions, books appointments directly into a live calendar, supports natural multilingual conversation, and escalates to a real person when it can't help.
+- **Conversion-engineered websites** — mobile-first, "conversion-engineered" websites designed so every page pushes a visitor toward booking or buying, not just informing them, with a live booking calendar built in.
+- **AI Voice Agents (website)** — a browser-based voice assistant visitors can talk to directly on the business's own site, no phone call required.
+
+## Appointment booking
+
+Bookings sync to a real, live calendar. Customers can book, reschedule, or cancel without playing phone tag, and confirmations are sent automatically by email.
+
+## Pricing (published packages — the only pricing AZ AI Geeks quotes; custom/negotiated pricing is handled on a call with a specialist)
+
+| Package | Price | Included |
+|---|---|---|
+| Starter Site | $500 one-time | Conversion-engineered website, mobile-first build, live booking calendar, 7-day turnaround |
+| Growth Engine (most popular) | $1,050 setup + $300/month | Everything in Starter, plus the AI Receptionist on the business's phone line, 24/7 call answering & booking, monthly check-in & reports, and the Booked-Call Guarantee |
+| Full Domination | $10,000 one-time | Everything in Growth Engine, plus paid ads management, a dedicated account manager, and priority scale/support |
+
+A free 15-minute Strategy Call is always the first step, with no cost and no pressure.
+
+## Guarantees
+
+- **Booked-Call Guarantee** — if a client doesn't get 3–4 qualified booked calls in their first 30 days, AZ AI Geeks keeps working, free, until they do.
+- **Do-It-Again-Free** — if a client isn't happy with the site or AI setup, AZ AI Geeks rebuilds or reconfigures it at no charge until it's right.
+- **Setup Fee Refund** — if the AI Receptionist isn't live and answering calls within 14 days of kickoff, the setup fee is fully refunded.
+
+## How it works
+
+1. **Strategy Call** — free, 15 minutes, maps goals and whether it's a fit.
+2. **We Build** — design, code, and AI Receptionist wiring, with first previews within 48 hours.
+3. **Go Live & Grow** — live within 7 days total; the AI starts answering immediately, with monthly reports afterward.
+
+## Availability
+
+Only 8 new builds are taken on per month — hands-on rather than templated, to protect quality and turnaround. A $100 deposit, fully credited toward the setup fee and fully refundable, can move a prospect to the front of the current month's queue.
+
+## Docs
+
+- [Homepage](https://azaigeeks.com/): full site copy, FAQ, and structured pricing detail

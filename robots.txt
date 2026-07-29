@@ -1,0 +1,60 @@
+User-agent: *
+Allow: /
+
+# ── AI / LLM crawlers — explicitly welcomed ─────────────────────────
+# We want AZ AI Geeks to be readable and citable by AI assistants and
+# answer engines (ChatGPT, Gemini, Perplexity, Claude, etc.), not just
+# traditional search. See /llms.txt for a clean, structured summary
+# built specifically for these crawlers.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://azaigeeks.com/sitemap.xml
