@@ -11,6 +11,7 @@ import Toaster from '@/components/Toaster';
 import '../globals.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://app.azaigeeks.com'),
   title: 'AZ AI Geeks — AI Booking Portal',
   description:
     'Book, reschedule, and manage appointments with an AI assistant you can chat or talk to — 24/7, in English, Spanish, or French.',

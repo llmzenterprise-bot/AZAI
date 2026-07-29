@@ -1,33 +1,35 @@
-'use client';
-import { useLocale, useTranslations } from 'next-intl';
-import { useRouter } from '@/i18n/navigation';
-import { SERVICES, type Locale } from '@/lib/data';
+import type { Metadata } from 'next';
+import { hasLocale } from 'next-intl';
+import { routing } from '@/i18n/routing';
+import { pageMetadata } from '@/lib/seo';
+import { SERVICES } from '@/lib/data';
+import ServicesClient from './ServicesClient';
 
-export default function Services() {
-  const t = useTranslations();
-  const locale = useLocale() as Locale;
-  const router = useRouter();
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const loc = hasLocale(routing.locales, locale) ? locale : routing.defaultLocale;
+  return pageMetadata('services', loc);
+}
+
+export default async function Services({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const loc = hasLocale(routing.locales, locale) ? locale : routing.defaultLocale;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'OfferCatalog',
+    name: 'AZ AI Geeks Bookable Services',
+    itemListElement: SERVICES[loc].map((s) => ({
+      '@type': 'Offer',
+      name: s.name,
+      description: `${s.desc} (${s.dur}, ${s.price})`,
+    })),
+  };
 
   return (
-    <section className="wrap app-shell">
-      <div className="sec-head">
-        <span className="eyebrow">{t('svc.eye')}</span>
-        <h2>{t('svc.h')}</h2>
-        <p className="lead">{t('svc.p')}</p>
-      </div>
-      <div className="grid g2">
-        {SERVICES[locale].map((s) => (
-          <div key={s.id} className="card">
-            <div className="ic">✦</div>
-            <h3>{s.name}</h3>
-            <p>{s.desc}</p>
-            <div style={{ marginTop: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ color: 'var(--muted)', fontSize: '.85rem' }}>⏱ {s.dur} · {s.price}</span>
-              <button className="btn btn-ghost btn-sm" onClick={() => router.push(`/book?service=${s.id}`)}>{t('nav.book')}</button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <ServicesClient />
+    </>
   );
 }

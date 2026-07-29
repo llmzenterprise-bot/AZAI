@@ -1,24 +1,34 @@
-'use client';
-import { useLocale, useTranslations } from 'next-intl';
-import { FAQ, type Locale } from '@/lib/data';
+import type { Metadata } from 'next';
+import { hasLocale } from 'next-intl';
+import { routing } from '@/i18n/routing';
+import { pageMetadata } from '@/lib/seo';
+import { FAQ } from '@/lib/data';
+import FaqClient from './FaqClient';
 
-export default function Faq() {
-  const t = useTranslations('faq');
-  const locale = useLocale() as Locale;
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const loc = hasLocale(routing.locales, locale) ? locale : routing.defaultLocale;
+  return pageMetadata('faq', loc);
+}
+
+export default async function Faq({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const loc = hasLocale(routing.locales, locale) ? locale : routing.defaultLocale;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ[loc].map(([q, a]) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  };
+
   return (
-    <section className="wrap app-shell">
-      <div className="sec-head">
-        <span className="eyebrow">{t('eye')}</span>
-        <h2>{t('h')}</h2>
-      </div>
-      <div style={{ maxWidth: 780, margin: '0 auto' }}>
-        {FAQ[locale].map(([q, a]) => (
-          <details key={q}>
-            <summary>{q}<span className="plus">+</span></summary>
-            <div className="a">{a}</div>
-          </details>
-        ))}
-      </div>
-    </section>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <FaqClient />
+    </>
   );
 }

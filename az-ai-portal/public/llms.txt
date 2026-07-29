@@ -1,0 +1,16 @@
+# AZ AI Geeks — AI Booking Portal
+
+> This is the customer-facing booking portal for AZ AI Geeks (app.azaigeeks.com). It lets a business's customers chat or talk with an AI assistant to ask questions and book, reschedule, or cancel appointments, in English, Spanish, or French, 24/7.
+
+For full company information — what AZ AI Geeks does, pricing packages, guarantees, and how the AI Receptionist product works — see the main site's summary: https://azaigeeks.com/llms.txt
+
+## Pages
+
+- [Home](https://app.azaigeeks.com/en): overview of the AI assistant and what it can do
+- [Services](https://app.azaigeeks.com/en/services): the four bookable services, with duration and price
+- [FAQ](https://app.azaigeeks.com/en/faq): common questions about the assistant, voice booking, languages, accounts, reminders, and privacy
+- [About](https://app.azaigeeks.com/en/about): who AZ AI Geeks is and what this portal is for
+- [Contact](https://app.azaigeeks.com/en/contact): message form and direct email (hello@azaigeeks.com)
+- [Book](https://app.azaigeeks.com/en/book): the appointment booking flow
+
+Also available in Spanish (`/es/...`) and French (`/fr/...`) at the same paths.
