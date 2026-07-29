@@ -1,4 +1,4 @@
-# Miguel AI / AZ AI Geeks — Knowledge Base
+# AZ AI Geeks — Outbound Sales Knowledge Base
 For Retell outbound sales agent. All facts sourced from azaigeeks.com — do not answer beyond what's here; transfer the call for anything not covered.
 
 ## Company
